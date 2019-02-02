@@ -1,17 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_funtion_pointers.c                             :+:      :+:    :+:   */
+/*   print_default.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/28 10:18:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/01/28 10:20:27 by rreedy           ###   ########.fr       */
+/*   Created: 2019/02/01 16:20:12 by rreedy            #+#    #+#             */
+/*   Updated: 2019/02/01 16:29:08 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-compare;
-
-print;
+void	print_default(char *s, int colors)
+{
+	if (colors)
+		ft_printf("%s%s\e[m\n", "\e[1;35m", s);
+	else
+		ft_printf("%s\n", s);
+}
