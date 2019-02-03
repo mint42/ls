@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_long.c                                       :+:      :+:    :+:   */
+/*   get_info.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 16:21:31 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/01 19:22:18 by rreedy           ###   ########.fr       */
+/*   Created: 2019/02/02 19:08:43 by rreedy            #+#    #+#             */
+/*   Updated: 2019/02/02 19:09:25 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char		*get_date(struct stat stats)
 	return (date);
 }
 
-static void		get_info(t_file *file)
+void			get_info(t_file *file)
 {
 	struct stat		stats;
 
@@ -47,25 +47,8 @@ static void		get_info(t_file *file)
 		return ;
 	file->rights = get_rights(stats);
 	file->links = stats.st_nlink;
-	file->username = (getpwuid(stats.st_uid))->pw_name;
-	file->groupname = (getgrgid(stats.st_gid))->gr_name;
+	file->username = ft_strdup((getpwuid(stats.st_uid))->pw_name);
+	file->groupname = ft_strdup((getgrgid(stats.st_gid))->gr_name);
 	file->bytes = stats.st_size;
 	file->date = get_date(stats);
-}
-
-void			print_long(t_file file, int colors)
-{
-	get_info(&file);
-	if (colors)
-	{
-		ft_printf("%s %d %s %s %d %s %s%s\e[m %s\n", file.rights, file.links,
-			file.username, file.groupname, file.bytes, file.date, "\e[1;35m",
-			file.name, file.path);
-	}
-	else
-	{
-		ft_printf("%s %d %s %s %d %s %s %s\n", file.rights, file.links,
-			file.username, file.groupname, file.bytes, file.date, file.name,
-			file.path);
-	}
 }

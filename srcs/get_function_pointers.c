@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 15:18:43 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/01 18:25:10 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/02 18:42:01 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ print	get_print_function(int ops)
 	static void		(*print_table[OP_PRINT])() = 
 	{
 		[OP_NULL] = print_default,
+		[OP_G] = print_default_colors,
 		[OP_L] = print_long,
+		[OP_GL] = print_long_colors,
 	//	[OP_X] = print_horizontal,
 	//	[OP_Y] = print_vertical,
 	};

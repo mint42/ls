@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:41:43 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/01 19:20:26 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/02 18:21:26 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static t_binarytree	*get_dir(t_binarytree **dirs, int ops, int (*compare)())
 		if (!(ops & OP_A) && dirent->d_name[0] == '.')
 			continue;
 		path = get_path(T_DIR(*dirs)->name, dirent->d_name);
-		insert_file(&files, init_file(dirent->d_name, path), compare);
+		insert_file(&files, init_file(ft_strdup(dirent->d_name), path), compare);
 		if ((ops & OP_BIGR) && lstat(path, &stats) == 0 && S_ISDIR(stats.st_mode))
 			insert_dir(&(*dirs)->right, init_dir(path), compare);
 		else
@@ -120,7 +120,7 @@ void			print_dirs(t_binarytree **dirs, int ops, int (*compare)(),
 	else
 		ft_printf("bad\n");
 	ft_putchar('\n');
-	ft_treedel(&dir, delete_dir);
+	ft_treedel(&dir, delete_file);
 	if (*dirs && (*dirs)->right)
 		print_dirs(&(*dirs)->right, ops, compare, print);
 }

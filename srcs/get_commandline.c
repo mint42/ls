@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 14:31:38 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/01 18:19:46 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/02 19:17:31 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 **	variables:
 **		options		->	pointer to a bit encoded int to hold flags from the ls
 **						command. encoding: [a g l r R t x y]
-**		argv	  	->	pointer to list of arguments sent to main function
+**		argv	  		->	pointer to list of arguments sent to main function
 **		all_options	->	string to hold all valid options
 **		cur		  	->	cursor pointer placed at the flag character in all_flags
 **						cooresponding to the flag character from argv
@@ -68,7 +68,7 @@ void	set_options(char ***argv, int *ops)
 **		respective dirents
 **
 **	variables:
-**		argv			->	list of arguments sent to main from command line
+**		argv				->	list of arguments sent to main from command line
 **		commandline.	->	pointer to a struct to hold the arguments grabbed
 **							from the command line (argv)
 **		  .options		->	pointer to a bit encoded int to hold options from
@@ -78,7 +78,7 @@ void	set_options(char ***argv, int *ops)
 **							and deleted multiple times for each directory)
 **		  .bad_args		->	binary tree of alphebetically-sorted dirents from 
 **							the command line that either don't exist or don't
-**							have read permissions
+**							hargve read permissions
 **		compare			->	funtion pointer for a jump table that holds the
 **							different ways to compare for binary tree insertion
 **							with flags: -r, -t
@@ -96,19 +96,23 @@ void	set_arguments(char **argv, t_commandline *args, int (*compare)())
 	struct stat		stats;
 
 	if (!(*argv))
-		insert_dir(&(args->dirs), init_dir("."), compare);
-	else
-		while (*argv)
+	{
+		insert_dir(&(args->dirs), init_dir(ft_strdup(".")), compare);
+		ft_printf("name: %s\n", ((t_dir *)((args->dirs)->content))->name);
+		return ;
+	}
+	while (*argv)
+	{
+		if (stat(*argv, &stats) == 0)
 		{
-			if (stat(*argv, &stats) == 0)
-			{
-				if (S_ISDIR(stats.st_mode))
-					insert_dir(&(args->dirs), init_dir(*argv), compare);
-				else
-					insert_file(&(args->files), init_file(*argv), compare);
-			}
+			if (S_ISDIR(stats.st_mode))
+				insert_dir(&(args->dirs), init_dir(ft_strdup(*argv)), compare);
 			else
-				insert_bad_arg(&(args->bad_args), init_bad_arg(*argv), compare);
-			++argv;
+				insert_file(&(args->files),
+						init_file(ft_strdup(*argv), ft_strdup(*argv)), compare);
 		}
+		else
+			insert_bad_arg(&(args->bad_args), init_bad_arg(*argv), compare);
+		++argv;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/01 19:20:43 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/02 19:13:59 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 #define OP_G (0x40)
 #define OP_GL (0x60)
 #define OP_A (0x80)
-#define OP_PRINT (0x43)
+#define OP_PRINT (0x63)
 #define OP_COMPARE (0x14)
 #define ALL_OPTIONS "aglrRtxy"
 #define T_DIR(binarytree) ((t_dir *)((binarytree)->content))
@@ -94,30 +94,35 @@ void					print_dirs(t_binarytree **dirs, int ops,
 							int (*compare)(), void (*print)());
 
 
-t_file					init_file(char *name, char *path);
+void					get_info(t_file *file);
+
+
+t_file					*init_file(char *name, char *path);
 void					insert_file(t_binarytree **file,
-							t_file content,
+							t_file *content,
 							int (*compare)(char *s1, char *s2));
 void					delete_file(t_file *file);
 
 
-t_dir					init_dir(char *name);
+t_dir					*init_dir(char *name);
 void					insert_dir(t_binarytree **dir,
-							t_dir content,
+							t_dir *content,
 							int (*compare)(char *s1, char *s2));
-void					delete_dir(t_dir **dir);
+void					delete_dir(t_dir *dir);
 
 
-t_bad_arg				init_bad_arg(char *path);
+t_bad_arg				*init_bad_arg(char *path);
 void					insert_bad_arg(t_binarytree **bad_args,
-							t_bad_arg content,
+							t_bad_arg *content,
 							int (*compare)(char *s1, char *s2));
-void					print_bad_arg(t_bad_arg bad_arg);
+void					print_bad_arg(t_bad_arg *bad_arg);
 void					delete_bad_arg(t_bad_arg *bad_arg);
 
 
-void					print_long(t_file file, int colors);
-void					print_default(char *s, int colors);
+void					print_default(t_binarytree *node);
+void					print_default_colors(t_binarytree *node);
+void					print_long(t_binarytree *node);
+void					print_long_colors(t_binarytree *node);
 
 
 int						compare_reverse(char *s1, char *s2);
