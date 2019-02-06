@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:41:43 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/02 18:21:26 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 14:08:31 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,14 @@ static char			*get_path(char *current_path, char *new_dirent)
 static t_binarytree	*get_dir(t_binarytree **dirs, int ops, int (*compare)())
 {
 	t_binarytree	*files;
+	t_file			*content;
 	struct dirent	*dirent;
 	struct stat		stats;
 	DIR				*dirp;
 	char			*path;
 
 	files = 0;
+	content = 0;
 	dirp = opendir(T_DIR(*dirs)->name);
 	if (!dirp)
 		return (0);
@@ -78,11 +80,11 @@ static t_binarytree	*get_dir(t_binarytree **dirs, int ops, int (*compare)())
 		if (!(ops & OP_A) && dirent->d_name[0] == '.')
 			continue;
 		path = get_path(T_DIR(*dirs)->name, dirent->d_name);
-		insert_file(&files, init_file(ft_strdup(dirent->d_name), path), compare);
+		content = init_file(ft_strdup(dirent->d_name), ft_strdup(path));
+		insert_file(&files, content, compare);
 		if ((ops & OP_BIGR) && lstat(path, &stats) == 0 && S_ISDIR(stats.st_mode))
-			insert_dir(&(*dirs)->right, init_dir(path), compare);
-		else
-			ft_strdel(&path);
+			insert_dir(&(*dirs)->right, init_dir(ft_strdup(path)), compare);
+		ft_strdel(&path);
 	}
 	(void)closedir(dirp);
 	return (files);
