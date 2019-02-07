@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/02 19:11:51 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 14:30:36 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,20 @@ void	insert_file(t_binarytree **file, t_file *content,
 	}
 }
 
-void		delete_file(t_file *file)
+void		delete_file(t_file **file)
 {
-	if (file)
+	if (*file)
 	{
-		ft_strdel(&(file->name));
-		ft_strdel(&(file->path));
-		if (file->rights)
-			ft_strdel(&(file->rights));
-		if (file->username)
-			ft_strdel(&(file->username));
-		if (file->groupname)
-			ft_strdel(&(file->groupname));
-		if (file->date)
-			ft_strdel(&(file->date));
-		ft_memdel((void **)&file);
+		ft_strdel(&((*file)->name));
+		ft_strdel(&((*file)->path));
+		if ((*file)->rights)
+			ft_strdel(&((*file)->rights));
+		if ((*file)->username)
+			ft_strdel(&((*file)->username));
+		if ((*file)->groupname)
+			ft_strdel(&((*file)->groupname));
+		if ((*file)->date)
+			ft_strdel(&((*file)->date));
+		ft_memdel((void **)file);
 	}
 }

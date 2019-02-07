@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/02 19:06:36 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 15:42:49 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void		insert_dir(t_binarytree **dirs, t_dir *content,
 	}
 }
 
-void		delete_dir(t_dir *dir)
+void		delete_dir(t_dir **dir)
 {
 	if (dir)
 	{
-		ft_strdel(&(dir->name));
-		ft_memdel((void **)&dir);
+		ft_strdel(&((*dir)->name));
+		ft_memdel((void **)dir);
 	}
 }

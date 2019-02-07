@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/02 19:13:59 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 16:00:08 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,22 +101,22 @@ t_file					*init_file(char *name, char *path);
 void					insert_file(t_binarytree **file,
 							t_file *content,
 							int (*compare)(char *s1, char *s2));
-void					delete_file(t_file *file);
+void					delete_file(t_file **file);
 
 
 t_dir					*init_dir(char *name);
 void					insert_dir(t_binarytree **dir,
 							t_dir *content,
 							int (*compare)(char *s1, char *s2));
-void					delete_dir(t_dir *dir);
+void					delete_dir(t_dir **dir);
 
 
 t_bad_arg				*init_bad_arg(char *path);
 void					insert_bad_arg(t_binarytree **bad_args,
 							t_bad_arg *content,
 							int (*compare)(char *s1, char *s2));
-void					print_bad_arg(t_bad_arg *bad_arg);
-void					delete_bad_arg(t_bad_arg *bad_arg);
+void					print_bad_arg(t_binarytree *node);
+void					delete_bad_arg(t_bad_arg **bad_arg);
 
 
 void					print_default(t_binarytree *node);

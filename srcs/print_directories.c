@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:41:43 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/06 14:08:31 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 14:27:11 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char			*get_path(char *current_path, char *new_dirent)
 **		ALL_OPTIONS	->	string containing all valid options for ls
 */
 
-static t_binarytree	*get_dir(t_binarytree **dirs, int ops, int (*compare)())
+static t_binarytree	*get_files(t_binarytree **dirs, int ops, int (*compare)())
 {
 	t_binarytree	*files;
 	t_file			*content;
@@ -110,19 +110,19 @@ static t_binarytree	*get_dir(t_binarytree **dirs, int ops, int (*compare)())
 void			print_dirs(t_binarytree **dirs, int ops, int (*compare)(),
 					void (*print)())
 {
-	t_binarytree	*dir;
+	t_binarytree	*files;
 
-	dir = 0;
+	files = 0;
 	if (*dirs && (*dirs)->left)
 		print_dirs(&(*dirs)->left, ops, compare, print);
-	dir = get_dir(dirs, ops, compare);
+	files = get_files(dirs, ops, compare);
 	ft_printf("%s:\n", T_DIR(*dirs)->name);
-	if (dir)
-		ft_treeiter(dir, print);
+	if (files)
+		ft_treeiter(files, print);
 	else
 		ft_printf("bad\n");
 	ft_putchar('\n');
-	ft_treedel(&dir, delete_file);
+	ft_treedel(&files, delete_file);
 	if (*dirs && (*dirs)->right)
 		print_dirs(&(*dirs)->right, ops, compare, print);
 }

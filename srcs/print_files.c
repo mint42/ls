@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:20:12 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/06 13:14:35 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 15:31:08 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,18 @@
 
 void	print_default_colors(t_binarytree *node)
 {
-	ft_printf("%s\n", (*T_FILE(node)).name);
+	t_file		file;
+
+	file = *T_FILE(node);
+	ft_printf("%s%s\e[m\n", "\e[1;35m", file.name);
 }
 
 void	print_default(t_binarytree *node)
 {
-	ft_printf("%s%s\e[m\n", "\e[1;35m", (*T_FILE(node)).name);
+	t_file		file;
+
+	file = *T_FILE(node);
+	ft_printf("%s\n", file.name);
 }
 
 void		print_long_colors(t_binarytree *node)

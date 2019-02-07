@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:33 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/02 19:06:55 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 16:04:15 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bad_arg	*init_bad_arg(char *name)
 
 	bad_arg = (t_bad_arg *)ft_memalloc(sizeof(t_bad_arg));
 	bad_arg->error_message = ft_strdup(strerror(errno));
-	bad_arg->name = ft_strdup(name);
+	bad_arg->name = name;
 	return (bad_arg);
 }
 
@@ -26,7 +26,7 @@ void		insert_bad_arg(t_binarytree **bad_args, t_bad_arg *content,
 				int (*compare)(char *s1, char *s2))
 {
 	if (!*bad_args)
-		*bad_args = ft_treenew(&content);
+		*bad_args = ft_treenew(content);
 	else
 	{
 		if ((compare(content->name, T_BAD_ARG(*bad_args)->name)) >= 0)
@@ -36,14 +36,17 @@ void		insert_bad_arg(t_binarytree **bad_args, t_bad_arg *content,
 	}
 }
 
-void		print_bad_arg(t_bad_arg *bad_arg)
+void		print_bad_arg(t_binarytree *node)
 {
-	ft_printf("ls: %s %s\n", bad_arg->name, bad_arg->error_message);
+	t_bad_arg	bad_arg;
+
+	bad_arg = *T_BAD_ARG(node);
+	ft_printfd(2, "ft_ls: %s: %s\n", bad_arg.name, bad_arg.error_message);
 }
 
-void		delete_bad_arg(t_bad_arg *bad_arg)
+void		delete_bad_arg(t_bad_arg **bad_arg)
 {
-	ft_strdel(&(bad_arg->name));
-	ft_strdel(&(bad_arg->error_message));
+	ft_strdel(&((*bad_arg)->name));
+	ft_strdel(&((*bad_arg)->error_message));
 	ft_memdel((void **)bad_arg);
 }

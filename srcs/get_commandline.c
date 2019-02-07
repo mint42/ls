@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 14:31:38 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/02 19:17:31 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 15:36:59 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,13 @@ void	set_options(char ***argv, int *ops)
 		while ((*ops != -1) && ++(**argv) && (***argv))
 		{
 			cur = ft_strchr(all_ops, ***argv);
-			*ops = (cur) ? ((*ops & !(*ops & (OP_L | OP_X | OP_Y))) |
-					(1 << (7 - (cur - all_ops)))) : -1;
+			if (cur)
+				*ops = ((OP_L | OP_X | OP_Y) & (1 << (7 - (cur - all_ops)))) ?
+						((*ops & ~(*ops & (OP_L | OP_X | OP_Y))) |
+						(1 << (7 - (cur - all_ops)))) :
+						((*ops) | (1 << (7 - (cur - all_ops))));
+			else
+				*ops = -1;
 		}
 	}
 }
@@ -109,10 +114,11 @@ void	set_arguments(char **argv, t_commandline *args, int (*compare)())
 				insert_dir(&(args->dirs), init_dir(ft_strdup(*argv)), compare);
 			else
 				insert_file(&(args->files),
-						init_file(ft_strdup(*argv), ft_strdup(*argv)), compare);
+					init_file(ft_strdup(*argv), ft_strdup(*argv)), compare);
 		}
 		else
-			insert_bad_arg(&(args->bad_args), init_bad_arg(*argv), compare);
+			insert_bad_arg(&(args->bad_args),
+					init_bad_arg(ft_strdup(*argv)), compare);
 		++argv;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/02 19:17:23 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/06 16:04:36 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 int			print_bad_option(char c)
 {
-	ft_printf("ls: illegal option -- %c\nusage: ls [-%s] [file ...]\n",
+	ft_printfd(2, "ls: illegal option -- %c\nusage: ls [-%s] [file ...]\n",
 			c, ALL_OPTIONS);
 	return (-1);
 }
@@ -87,12 +87,14 @@ int			main(int argc, char **argv)
 	compare = get_compare_function(commandline.options);
 	print = get_print_function(commandline.options);
 	set_arguments(argv, &commandline, compare);
-	ft_treeiterdel(&(commandline.bad_args), print_bad_arg, delete_bad_arg);
+	if (commandline.bad_args)
+		ft_treeiterdel(&(commandline.bad_args), print_bad_arg, delete_bad_arg);
 	if (commandline.files)
 	{
 		ft_treeiterdel(&(commandline.files), print, delete_file);
 		ft_printf("\n");
 	}
-	print_dirs(&(commandline.dirs), commandline.options, compare, print);
+	if (commandline.dirs)
+		print_dirs(&(commandline.dirs), commandline.options, compare, print);
 	return (0);
 }
