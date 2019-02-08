@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/06 16:00:08 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/07 13:09:30 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,14 @@ typedef struct			s_file
 	char				*path;
 	char				*rights;
 	char				*username;
+	unsigned int		username_len;
 	char				*groupname;
+	unsigned int		groupname_len;
 	char				*date;
 	unsigned int		links;
+	unsigned int		links_len;
 	unsigned long int	bytes;
+	unsigned int		bytes_len;
 }						t_file;
 
 typedef struct			s_bad_arg
@@ -94,13 +98,14 @@ void					print_dirs(t_binarytree **dirs, int ops,
 							int (*compare)(), void (*print)());
 
 
-void					get_info(t_file *file);
+void					get_info(t_dir *dir, t_file *file, char *path);
 
-
-t_file					*init_file(char *name, char *path);
+t_file					*init_file(char *name, char *path, int for_dir);
 void					insert_file(t_binarytree **file,
 							t_file *content,
 							int (*compare)(char *s1, char *s2));
+void					print_files(t_binarytree *files, t_dir dir,
+							void (*print)());
 void					delete_file(t_file **file);
 
 
@@ -119,10 +124,10 @@ void					print_bad_arg(t_binarytree *node);
 void					delete_bad_arg(t_bad_arg **bad_arg);
 
 
-void					print_default(t_binarytree *node);
-void					print_default_colors(t_binarytree *node);
-void					print_long(t_binarytree *node);
-void					print_long_colors(t_binarytree *node);
+void					print_default(t_file file, t_dir dir);
+void					print_default_colors(t_file file, t_dir dir);
+void					print_long(t_file file, t_dir dir);
+void					print_long_colors(t_file file, t_dir dir);
 
 
 int						compare_reverse(char *s1, char *s2);

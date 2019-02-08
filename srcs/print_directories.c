@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:41:43 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/06 14:27:11 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/07 18:37:02 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,12 @@ static char			*get_path(char *current_path, char *new_dirent)
 static t_binarytree	*get_files(t_binarytree **dirs, int ops, int (*compare)())
 {
 	t_binarytree	*files;
-	t_file			*content;
+	t_file			*file;
 	struct dirent	*dirent;
-	struct stat		stats;
 	DIR				*dirp;
 	char			*path;
 
 	files = 0;
-	content = 0;
 	dirp = opendir(T_DIR(*dirs)->name);
 	if (!dirp)
 		return (0);
@@ -80,9 +78,10 @@ static t_binarytree	*get_files(t_binarytree **dirs, int ops, int (*compare)())
 		if (!(ops & OP_A) && dirent->d_name[0] == '.')
 			continue;
 		path = get_path(T_DIR(*dirs)->name, dirent->d_name);
-		content = init_file(ft_strdup(dirent->d_name), ft_strdup(path));
-		insert_file(&files, content, compare);
-		if ((ops & OP_BIGR) && lstat(path, &stats) == 0 && S_ISDIR(stats.st_mode))
+		file = init_file(ft_strdup(dirent->d_name), ft_strdup(path), 1);
+		insert_file(&files, file, compare);
+		get_info(T_DIR(*dirs), file, path);
+		if ((ops & OP_BIGR) && file->rights && *(file->rights) == 'd')
 			insert_dir(&(*dirs)->right, init_dir(ft_strdup(path)), compare);
 		ft_strdel(&path);
 	}
@@ -118,9 +117,7 @@ void			print_dirs(t_binarytree **dirs, int ops, int (*compare)(),
 	files = get_files(dirs, ops, compare);
 	ft_printf("%s:\n", T_DIR(*dirs)->name);
 	if (files)
-		ft_treeiter(files, print);
-	else
-		ft_printf("bad\n");
+		print_files(files, *T_DIR(*dirs), print);
 	ft_putchar('\n');
 	ft_treedel(&files, delete_file);
 	if (*dirs && (*dirs)->right)
