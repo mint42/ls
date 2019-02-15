@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/06 16:04:36 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/12 18:29:29 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,24 @@ int			print_bad_option(char c)
 
 int			main(int argc, char **argv)
 {
-	t_commandline	commandline;
-	void			(*print)();
-	int				(*compare)();
+	t_arguments		arguments;
+	t_options		options;
+	t_dir			files_dir;
 
 	(void)argc;
-	commandline.options = 0;
-	commandline.dirs = 0;
-	commandline.files = 0;
-	commandline.bad_args = 0;
-	set_options(&argv, &(commandline.options));
-	if (commandline.options == -1)
+	options = get_options(&argv);
+	if (options.flags == -1)
 		return (print_bad_option(**argv));
-	compare = get_compare_function(commandline.options);
-	print = get_print_function(commandline.options);
-	set_arguments(argv, &commandline, compare);
-	if (commandline.bad_args)
-		ft_treeiterdel(&(commandline.bad_args), print_bad_arg, delete_bad_arg);
-	if (commandline.files)
+	arguments = get_arguments(argv, files_dir, options.compare);
+	if (arguments.bad_args)
+		ft_treeiterdel(&(arguments.bad_args), print_bad_arg, delete_bad_arg);
+	if (arguments.files)
 	{
-		ft_treeiterdel(&(commandline.files), print, delete_file);
+		print_files(arguments.files, options.print);
+		ft_treedel(&(arguments.files), delete_file);
 		ft_printf("\n");
 	}
-	if (commandline.dirs)
-		print_dirs(&(commandline.dirs), commandline.options, compare, print);
+	if (arguments.dirs)
+		print_dirs(&(arguments.dirs), options);
 	return (0);
 }

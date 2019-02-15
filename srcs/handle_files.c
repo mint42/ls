@@ -1,39 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_info.c                                         :+:      :+:    :+:   */
+/*   handle_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/02 19:08:43 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/07 17:59:22 by rreedy           ###   ########.fr       */
+/*   Created: 2019/02/11 18:19:21 by rreedy            #+#    #+#             */
+/*   Updated: 2019/02/14 16:27:33 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-static char		get_file_type(int mode)
-{
-	char	type;
-
-	type = 0;
-	if (S_ISREG(mode))
-		type = '-';
-	else if (S_ISBLK(mode))
-		type = 'b';
-	else if (S_ISCHR(mode))
-		type = 'c';
-	else if (S_ISDIR(mode))
-		type = 'd';
-	else if (S_ISLNK(mode))
-		type = 'l';
-	else if (S_ISFIFO(mode))
-		type = 'p';
-	else if (S_ISSOCK(mode))
-		type = 's';
-	return (type);
-	
-}
 
 static char		*get_rights(struct stat stats)
 {
@@ -47,7 +24,20 @@ static char		*get_rights(struct stat stats)
 	while (--i >= 0)
 		if (!((bits >> i) & 1))
 			rights[9 - i] = '-';
-	rights[0] = get_file_type(stats.st_mode);
+	if (S_ISREG(stats.st_mode))
+		return (rights);
+	else if (S_ISBLK(stats.st_mode))
+		rights[0] = 'b';
+	else if (S_ISCHR(stats.st_mode))
+		rights[0] = 'c';
+	else if (S_ISDIR(stats.st_mode))
+		rights[0] = 'd';
+	else if (S_ISLNK(stats.st_mode))
+		rights[0] = 'l';
+	else if (S_ISFIFO(stats.st_mode))
+		rights[0] = 'p';
+	else if (S_ISSOCK(stats.st_mode))
+		rights[0] = 's';
 	return (rights);
 }
 
@@ -63,7 +53,7 @@ static char		*get_date(struct stat stats)
 	return (date);
 }
 
-void			get_info(t_dir *dir, t_file *file, char *path)
+static void		get_stats(t_file *file, t_entry *entry, char *path)
 {
 	struct stat		stats;
 
@@ -79,14 +69,35 @@ void			get_info(t_dir *dir, t_file *file, char *path)
 	file->bytes = stats.st_size;
 	file->bytes_len = ft_numlen(file->bytes);
 	file->date = get_date(stats);
-	if (!dir)
-		return ;
-	if (dir->username_len < file->username_len)
-		dir->username_len = file->username_len;
-	if (dir->groupname_len < file->groupname_len)
-		dir->groupname_len = file->groupname_len;
-	if (dir->links_len < file->links_len)
-		dir->links_len = file->links_len;
-	if (dir->bytes_len < file->bytes_len)
-		dir->bytes_len = file->bytes_len;
+	file->bad_access = 0;
+	if (entry->max_username_len < file->username_len)
+		entry->max_username_len = file->username_len;
+	if (entry->max_groupname_len < file->groupname_len)
+		entry->max_groupname_len = file->groupname_len;
+	if (entry->max_links_len < file->links_len)
+		entry->max_links_len = file->links_len;
+	if (entry->max_bytes_len < file->bytes_len)
+		entry->max_bytes_len = file->bytes_len;
+}
+
+static void		fill_file(t_entry **entry, char *file_name, char *file_path,
+		t_options options)
+{ 
+	t_file		file;
+
+	file = init_file(ft_strdup(file_name));
+	get_stats(&entry, file, path);
+	insert_entry(entry->files, entry, options.compare);
+}
+
+int				print_commandline_files(char *name, char *path)
+{
+	t_entry		entry;
+
+	entry = init_entry(file_name, path);
+	file = init_file(name, path);
+	get_info(file, &dir_struct);
+	ft_treeiter(arguments.files, options.print);
+	ft_treedel(&(arguments.files), delete_file);
+	ft_printf("\n");
 }

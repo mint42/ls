@@ -6,13 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/07 17:18:03 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/14 15:09:41 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file	*init_file(char *name, char *path, int for_dir)
+t_file	*init_file(char *name, char *path)
 {
 	t_file	*file;
 
@@ -29,8 +29,7 @@ t_file	*init_file(char *name, char *path, int for_dir)
 	file->links_len = 0;
 	file->bytes = 0;
 	file->bytes_len = 0;
-	if (!for_dir)
-		get_info(0, file, file->path);
+	file->bad_access = 0;
 	return (file);
 }
 
@@ -48,6 +47,7 @@ void	insert_file(t_binarytree **file, t_file *content,
 	}
 }
 
+
 void		print_files(t_binarytree *files, t_dir dir, void (*print)())
 {
 	if (files->left)
@@ -61,8 +61,10 @@ void		delete_file(t_file **file)
 {
 	if (*file)
 	{
-		ft_strdel(&((*file)->name));
-		ft_strdel(&((*file)->path));
+		if ((*file)->name)
+			ft_strdel(&((*file)->name));
+		if ((*file)->path)
+			ft_strdel(&((*file)->path));
 		if ((*file)->rights)
 			ft_strdel(&((*file)->rights));
 		if ((*file)->username)

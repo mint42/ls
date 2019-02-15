@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/07 13:09:30 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/14 14:16:12 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,30 +46,37 @@
 typedef int				(*compare)();
 typedef void			(*print)();
 
-typedef struct			s_dir
+typedef struct			s_maxes
 {
-	char				*name;
 	unsigned int		username_len;
 	unsigned int		groupname_len;
 	unsigned int		links_len;
 	unsigned int		bytes_len;
-}						t_dir;
+}						t_max;
 
-typedef struct			s_file
+typedef struct			s_dirent
 {
 	char				*name;
-	char				*path;
 	char				*rights;
 	char				*username;
 	unsigned int		username_len;
 	char				*groupname;
 	unsigned int		groupname_len;
 	char				*date;
+	char				*link_path;
 	unsigned int		links;
 	unsigned int		links_len;
 	unsigned long int	bytes;
 	unsigned int		bytes_len;
-}						t_file;
+	unsigned int		bad_access;
+}						t_dirent;
+
+typedef struct			s_entree
+{
+	char				*path;
+	t_binarytree		*entries;
+	t_max				maxes;
+}						t_entree;
 
 typedef struct			s_bad_arg
 {
@@ -77,29 +84,41 @@ typedef struct			s_bad_arg
 	char				*error_message;
 }						t_bad_arg;
 
-typedef struct			s_commandline
+typedef struct			s_arguments
 {
-	int					options;
 	t_binarytree		*dirs;
-	t_binarytree		*files;
+	t_entree			*files;
 	t_binarytree		*bad_args;
-}						t_commandline;
+}						t_arguments;
 
-void					set_options(char ***argv, int *ops);
-void					set_arguments(char **argv, t_commandline *args,
+typedef struct			s_options
+{
+	int					flags;
+	int					(*compare)();
+	void				(*print)();
+}						t_options;
+
+
+/*
+**	get_options.c and get_arguments.c
+*/
+void					get_options(t_options *options, char ***argv);
+void					get_arguments(t_arguments *args, char **argv,
 							int (*compare)());
 
-
-print					get_print_function(int ops);
-compare					get_compare_function(int ops);
-
-
-void					print_dirs(t_binarytree **dirs, int ops,
-							int (*compare)(), void (*print)());
-
-
+/*
+**	get_info.c
+*/
 void					get_info(t_dir *dir, t_file *file, char *path);
 
+/*
+**	print_directories.c
+*/
+void					print_dirs(t_binarytree **dirs, t_options options);
+
+/*
+**	files.c, dirs.c, and bad_args.c
+*/
 t_file					*init_file(char *name, char *path, int for_dir);
 void					insert_file(t_binarytree **file,
 							t_file *content,
@@ -108,13 +127,11 @@ void					print_files(t_binarytree *files, t_dir dir,
 							void (*print)());
 void					delete_file(t_file **file);
 
-
 t_dir					*init_dir(char *name);
 void					insert_dir(t_binarytree **dir,
 							t_dir *content,
 							int (*compare)(char *s1, char *s2));
 void					delete_dir(t_dir **dir);
-
 
 t_bad_arg				*init_bad_arg(char *path);
 void					insert_bad_arg(t_binarytree **bad_args,
@@ -123,12 +140,14 @@ void					insert_bad_arg(t_binarytree **bad_args,
 void					print_bad_arg(t_binarytree *node);
 void					delete_bad_arg(t_bad_arg **bad_arg);
 
+/*
+**	compare_functions.c and print_functions.c
+*/
+int						compare_reverse(char *s1, char *s2);
+int						compare_time(char *s1, char *s2);
 
 void					print_default(t_file file, t_dir dir);
 void					print_default_colors(t_file file, t_dir dir);
 void					print_long(t_file file, t_dir dir);
 void					print_long_colors(t_file file, t_dir dir);
-
-
-int						compare_reverse(char *s1, char *s2);
 #endif
