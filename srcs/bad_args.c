@@ -6,13 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:33 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/06 16:04:15 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/15 13:22:07 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_bad_arg	*init_bad_arg(char *name)
+t_bad_arg	*fill_bad_arg(char *name)
 {
 	t_bad_arg	*bad_arg;
 

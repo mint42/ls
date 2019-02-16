@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/12 18:29:29 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/15 17:19:16 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,24 @@ int			print_bad_option(char c)
 int			main(int argc, char **argv)
 {
 	t_arguments		arguments;
-	t_options		options;
-	t_dir			files_dir;
+	t_options		ops;
 
 	(void)argc;
-	options = get_options(&argv);
-	if (options.flags == -1)
+	get_options(&ops, &argv);
+	if (ops.flags == -1)
 		return (print_bad_option(**argv));
-	arguments = get_arguments(argv, files_dir, options.compare);
+	get_arguments(&arguments, argv, ops.compare);
 	if (arguments.bad_args)
 		ft_treeiterdel(&(arguments.bad_args), print_bad_arg, delete_bad_arg);
-	if (arguments.files)
+	if ((arguments.files)->files)
 	{
-		print_files(arguments.files, options.print);
-		ft_treedel(&(arguments.files), delete_file);
-		ft_printf("\n");
+		print_files((arguments.files)->files, arguments.files, ops.print);
+		ft_treedel(&(arguments.files)->files, delete_file);
+		if (arguments.dirs)
+			ft_printf("\n");
 	}
+	ft_memdel((void **)&(arguments.files));
 	if (arguments.dirs)
-		print_dirs(&(arguments.dirs), options);
+		print_dirs(&(arguments.dirs), ops);
 	return (0);
 }

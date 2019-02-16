@@ -6,19 +6,18 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/14 15:09:41 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/15 17:59:25 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file	*init_file(char *name, char *path)
+t_file	*init_file(char *name)
 {
 	t_file	*file;
 
 	file = (t_file *)ft_memalloc(sizeof(t_file));
 	file->name = name;
-	file->path = path;
 	file->rights = 0;
 	file->username = 0;
 	file->username_len = 0;
@@ -33,28 +32,27 @@ t_file	*init_file(char *name, char *path)
 	return (file);
 }
 
-void	insert_file(t_binarytree **file, t_file *content,
+void	insert_file(t_binarytree **files, t_file *content,
 				int (*compare)(char *s1, char *s2))
 {
-	if (!*file)
-		*file = ft_treenew(content);
+	if (!*files)
+		*files = ft_treenew(content);
 	else
 	{
-		if ((compare(content->name, T_FILE(*file)->name)) >= 0)
-			insert_file(&(*file)->right, content, compare);
+		if (compare(content->name, T_FILE_F(*files)->name) >= 0)
+			insert_file(&(*files)->right, content, compare);
 		else
-			insert_file(&(*file)->left, content, compare);
+			insert_file(&(*files)->left, content, compare);
 	}
 }
 
-
-void		print_files(t_binarytree *files, t_dir dir, void (*print)())
+void		print_files(t_binarytree *files, t_entry *entry, void (*print)())
 {
 	if (files->left)
-		print_files(files->left, dir, print);
-	print(*T_FILE(files), dir);
+		print_files(files->left, entry, print);
+	print(T_FILE_F(files), entry);
 	if (files->right)
-		print_files(files->right, dir, print);
+		print_files(files->right, entry, print);
 }
 
 void		delete_file(t_file **file)
@@ -63,8 +61,6 @@ void		delete_file(t_file **file)
 	{
 		if ((*file)->name)
 			ft_strdel(&((*file)->name));
-		if ((*file)->path)
-			ft_strdel(&((*file)->path));
 		if ((*file)->rights)
 			ft_strdel(&((*file)->rights));
 		if ((*file)->username)
@@ -73,6 +69,8 @@ void		delete_file(t_file **file)
 			ft_strdel(&((*file)->groupname));
 		if ((*file)->date)
 			ft_strdel(&((*file)->date));
+		if ((*file)->symlink_path)
+			ft_strdel(&((*file)->symlink_path));
 		ft_memdel((void **)file);
 	}
 }

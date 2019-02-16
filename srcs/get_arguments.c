@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:15:54 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/12 17:48:33 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/15 17:13:53 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,33 +51,31 @@ static void		fill_trees(t_arguments *args, char **argv, int (*compare)())
 
 	if (!(*argv))
 	{
-		insert_dir(&(args->dirs), init_dir(ft_strdup(".")), compare);
-		return (args);
+		insert_entry(&(args->dirs), init_entry(ft_strdup(".")), compare);
+		return ;
 	}
 	while (*argv)
 	{
 		if (stat(*argv, &stats) == 0)
 		{
 			if (S_ISDIR(stats.st_mode))
-				insert_dir(&(args->dirs), init_dir(ft_strdup(*argv)), compare);
+				insert_entry(&(args->dirs), init_entry(ft_strdup(*argv)),
+					compare);
 			else
-				insert_file(&args->files, ft_strdup(*argv), ft_strdup(*argv)),
+				handle_file((args->files), ft_strdup(*argv), ft_strdup(*argv),
 					compare);
 		}
 		else
 			insert_bad_arg(&(args->bad_args),
-					init_bad_arg(ft_strdup(*argv)), compare);
+					fill_bad_arg(ft_strdup(*argv)), compare);
 		++argv;
 	}
 }
 
-t_arguments		get_arguments(char **argv, t_dir files_max, int (*compare)())
+void			get_arguments(t_arguments *args, char **argv, int (*compare)())
 {
-	t_arguments		args;
-
-	args.dirs = 0;
-	args.files = 0;
-	args.bad_args = 0;
-	fill_trees(&args, argv, compare);
-	return (args);
+	args->dirs = 0;
+	args->files = init_entry(0);
+	args->bad_args = 0;
+	fill_trees(args, argv, compare);
 }

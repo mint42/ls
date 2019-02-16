@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:52:09 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/11 18:07:11 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/15 17:53:19 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ static compare		get_compare_function(int ops)
 	int				(*compare)();
 	static int		(*compare_table[OP_COMPARE])() = 
 	{
-		[OP_NULL] = ft_strcmp,
+		[OP_NULL] = compare_default,
 		[OP_R] = compare_reverse,
-	//	[OP_T] = compare_time,
+		[OP_T] = compare_time,
 	};
 
 	compare = compare_table[ops & OP_COMPARE];
@@ -67,7 +67,7 @@ static compare		get_compare_function(int ops)
 **		ALL_OPTIONS	->	string containing all valid options for ls
 */
 
-static void			encode_flags(int *ops, char ***argv)
+static void			fill_flags(int *ops, char ***argv)
 {
 	char	*all_ops;
 	char	*cur;
@@ -94,17 +94,14 @@ static void			encode_flags(int *ops, char ***argv)
 	}
 }
 
-t_options		get_options(char ***argv)
+void			get_options(t_options *ops, char ***argv)
 {
-	t_options		options;
-
-	options.flags = 0;
-	options.compare = 0;
-	options.print = 0;
-	encode_flags(&(options.flags), argv);
-	if (options->flags == -1)
-		return (options);
-	options.compare = get_compare_function(options.flags);
-	options.print = get_print_function(options.flags);
-	return (options);
+	ops->flags = 0;
+	ops->compare = 0;
+	ops->print = 0;
+	fill_flags(&(ops->flags), argv);
+	if (ops->flags == -1)
+		return ;
+	ops->compare = get_compare_function(ops->flags);
+	ops->print = get_print_function(ops->flags);
 }
