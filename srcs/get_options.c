@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:52:09 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/15 17:53:19 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/16 15:22:10 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ static print		get_print_function(int ops)
 static compare		get_compare_function(int ops)
 {
 	int				(*compare)();
-	static int		(*compare_table[OP_COMPARE])() = 
+	static int		(*compare_table[OP_COMPARE + 1])() = 
 	{
 		[OP_NULL] = compare_default,
 		[OP_R] = compare_reverse,
 		[OP_T] = compare_time,
+		[OP_RT] = compare_time_reverse,
 	};
 
 	compare = compare_table[ops & OP_COMPARE];

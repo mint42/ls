@@ -6,12 +6,11 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:18:59 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/15 17:26:14 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/16 17:58:02 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
 
 static void		print_error(char *path)
 {
@@ -20,7 +19,7 @@ static void		print_error(char *path)
 
 static char		*get_file_path(char *dir_path, char *file_name)
 {
-	char 	*new_path;
+	char	*new_path;
 	int		dir_path_len;
 	int		file_name_len;
 
@@ -35,14 +34,15 @@ static char		*get_file_path(char *dir_path, char *file_name)
 
 static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 {
+	t_file	*file;
 	char	*file_path;
-	
+
 	file_path = get_file_path(T_ENTRY(*dirs)->path, file_name);
-	handle_file(T_ENTRY(*dirs), file_name, file_path, ops.compare);
-	if ((ops.flags & OP_BIGR) && T_FILE_D(*dirs)->rights &&
-			*(T_FILE_D(*dirs)->rights) == 'd')
-				insert_entry(&(*dirs)->right,
-					init_entry(ft_strdup(file_path)), ops.compare);
+	file = handle_file(T_ENTRY(*dirs), file_name, file_path, ops.compare);
+	if ((ops.flags & OP_BIGR) && file && file->rights && *(file->rights) == 'd'
+			&& !ft_strequ(file->name, ".") && !ft_strequ(file->name, ".."))
+		insert_entry(&(*dirs)->right,
+			init_entry(ft_strdup(file_path)), ops.compare);
 	ft_strdel(&file_path);
 }
 
@@ -66,27 +66,37 @@ static void		get_files(t_binarytree **dirs, t_options ops)
 	}
 	else
 	{
-		bad_entry = init_file(0);
+		bad_entry = init_file();
 		bad_entry->bad_access = 1;
 		insert_file(&(T_ENTRY(*dirs)->files), bad_entry, ops.compare);
 	}
 }
 
-void			print_dirs(t_binarytree **dirs, t_options ops)
+void			print_dirs(t_binarytree **dirs, int nargs, t_options ops,
+					int newline)
 {
 	if (*dirs && (*dirs)->left)
-		print_dirs(&(*dirs)->left, ops);
+		print_dirs(&(*dirs)->left, nargs, ops, newline);
 	get_files(dirs, ops);
-	ft_printf("%s:\n", T_ENTRY(*dirs)->path);
-	ft_printf("total %d\n", T_ENTRY(*dirs)->total_blocks);
+	if (newline)
+		ft_putchar('\n');
+	else
+		newline = 1;
+	if (nargs > 1)
+		ft_printf("%s:\n", T_ENTRY(*dirs)->path);
+	else
+		nargs = 2;
 	if (T_ENTRY(*dirs)->files && T_FILE_D(*dirs)->bad_access)
 		print_error(T_ENTRY(*dirs)->path);
 	else if (T_ENTRY(*dirs)->files)
+	{
+		if ((ops.flags & OP_L))
+			ft_printf("total %d\n", T_ENTRY(*dirs)->total_blocks);
 		print_files(T_ENTRY(*dirs)->files, T_ENTRY(*dirs), ops.print);
+	}
 	ft_treedel(&(T_ENTRY(*dirs)->files), delete_file);
 	if (*dirs && (*dirs)->right)
-	{
-		ft_putchar('\n');
-		print_dirs(&(*dirs)->right, ops);
-	}
+		print_dirs(&(*dirs)->right, nargs, ops, newline);
+	ft_strdel(&(T_ENTRY(*dirs)->path));
+	ft_memdel((void **)dirs);
 }

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/15 17:19:16 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/16 16:39:54 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@
 **		ALL_OPTIONS	->	string containing all valid options for ls
 */
 
-int			print_bad_option(char c)
+int		print_bad_option(char c)
 {
 	ft_printfd(2, "ls: illegal option -- %c\nusage: ls [-%s] [file ...]\n",
 			c, ALL_OPTIONS);
 	return (-1);
 }
-
 
 /*
 **	function name:
@@ -54,7 +53,7 @@ int			print_bad_option(char c)
 **		  .dirs			->	binary tree of compare-sorted directories
 **		  .files		->	binary tree of compare-sorted dirents (gets created
 **							and deleted multiple times for each directory)
-**		  .bad_args		->	binary tree of alphebetically-sorted dirents from 
+**		  .bad_args		->	binary tree of alphebetically-sorted dirents from
 **							the command line that either don't exist or don't
 **							have read permissions
 **		compare			->	funtion pointer for a jump table that holds the
@@ -70,7 +69,7 @@ int			print_bad_option(char c)
 **		N/A
 */
 
-int			main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_arguments		arguments;
 	t_options		ops;
@@ -91,6 +90,6 @@ int			main(int argc, char **argv)
 	}
 	ft_memdel((void **)&(arguments.files));
 	if (arguments.dirs)
-		print_dirs(&(arguments.dirs), ops);
+		print_dirs(&(arguments.dirs), arguments.nargs, ops, 0);
 	return (0);
 }

@@ -6,18 +6,18 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/15 17:59:25 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/16 15:47:33 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file	*init_file(char *name)
+t_file	*init_file(void)
 {
 	t_file	*file;
 
 	file = (t_file *)ft_memalloc(sizeof(t_file));
-	file->name = name;
+	file->name = 0;
 	file->rights = 0;
 	file->username = 0;
 	file->username_len = 0;
@@ -39,14 +39,14 @@ void	insert_file(t_binarytree **files, t_file *content,
 		*files = ft_treenew(content);
 	else
 	{
-		if (compare(content->name, T_FILE_F(*files)->name) >= 0)
+		if (compare(content->path, T_FILE_F(*files)->path) >= 0)
 			insert_file(&(*files)->right, content, compare);
 		else
 			insert_file(&(*files)->left, content, compare);
 	}
 }
 
-void		print_files(t_binarytree *files, t_entry *entry, void (*print)())
+void	print_files(t_binarytree *files, t_entry *entry, void (*print)())
 {
 	if (files->left)
 		print_files(files->left, entry, print);
@@ -55,10 +55,12 @@ void		print_files(t_binarytree *files, t_entry *entry, void (*print)())
 		print_files(files->right, entry, print);
 }
 
-void		delete_file(t_file **file)
+void	delete_file(t_file **file)
 {
 	if (*file)
 	{
+		if ((*file)->path)
+			ft_strdel(&((*file)->path));
 		if ((*file)->name)
 			ft_strdel(&((*file)->name));
 		if ((*file)->rights)

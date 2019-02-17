@@ -6,30 +6,62 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/15 17:58:32 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/16 18:07:01 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-//int		compare_default(t_file *f1, t_file *f2)
-int		compare_default(char *f1, char *f2)
+int		compare_default(char *path1, char *path2)
 {
-	return (ft_strcmp(f1, f2));
-//	return (ft_strcmp(f1->name, f2->name));
+	while (path1 && path2 && *path1 && *path2 && *path1 == *path2)
+	{
+		++path1;
+		++path2;
+	}
+	if (*path1 == '/') 
+		return (-1);
+	if (*path2 == '/')
+		return (1);
+	return ((unsigned char)*path1 - (unsigned char)*path2);
 }
 
-//int		compare_reverse(t_file *f1, t_file *f2)
-int		compare_reverse(char *f1, char *f2)
+int		compare_reverse(char *path1, char *path2)
 {
-	return (ft_strcmp(f2, f1));
-//	return (ft_strcmp(f2->name, f1->name));
+	while (path1 && path2 && *path1 && *path2 && *path1 == *path2)
+	{
+		++path1;
+		++path2;
+	}
+	if (*path1 == '/') 
+		return (1);
+	if (*path2 == '/')
+		return (-1);
+	return ((unsigned char)*path2 - (unsigned char)*path1);
 }
 
-//int		compare_time(t_file *f1, t_file *f2)
-int		compare_time(char *f1, char *f2)
+int		compare_time(char *path1, char *path2)
 {
-	return (ft_strcmp(f1, f2));
-//	return (f1->time - f2->time);
+	struct stat		stats;
+	time_t			tmptime;
+	time_t			diff;
+
+	lstat(path1, &stats);
+	tmptime = stats.st_mtime;
+	lstat(path2, &stats);
+	diff = stats.st_mtime - tmptime;
+	return ((diff) ? diff : compare_default(path1, path2));
 }
 
+int		compare_time_reverse(char *path1, char *path2)
+{
+	struct stat		stats;
+	time_t			tmptime;
+	time_t			diff;
+
+	lstat(path1, &stats);
+	tmptime = stats.st_mtime;
+	lstat(path2, &stats);
+	diff = tmptime - stats.st_mtime;
+	return ((diff) ? diff : compare_reverse(path2, path1));
+}

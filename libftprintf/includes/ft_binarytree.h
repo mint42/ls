@@ -6,14 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 13:08:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/01 18:46:50 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/16 15:43:05 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_BINARYTREE_H
-#define FT_BINARYTREE_H
+# define FT_BINARYTREE_H
 
-#include "libft.h"
+# include "libft.h"
 
 typedef struct			s_binarytree
 {

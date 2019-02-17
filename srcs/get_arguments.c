@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 14:15:54 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/15 17:13:53 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/16 15:39:33 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 **		  .dirs			->	binary tree of compare-sorted directories
 **		  .files		->	binary tree of compare-sorted dirents (gets created
 **							and deleted multiple times for each directory)
-**		  .bad_args		->	binary tree of alphebetically-sorted dirents from 
+**		  .bad_args		->	binary tree of alphebetically-sorted dirents from
 **							the command line that either don't exist or don't
 **							hargve read permissions
 **		compare			->	funtion pointer for a jump table that holds the
@@ -59,15 +59,17 @@ static void		fill_trees(t_arguments *args, char **argv, int (*compare)())
 		if (stat(*argv, &stats) == 0)
 		{
 			if (S_ISDIR(stats.st_mode))
+			{
 				insert_entry(&(args->dirs), init_entry(ft_strdup(*argv)),
 					compare);
+			}
 			else
-				handle_file((args->files), ft_strdup(*argv), ft_strdup(*argv),
-					compare);
+				handle_file(args->files, *argv, *argv, compare);
 		}
 		else
 			insert_bad_arg(&(args->bad_args),
 					fill_bad_arg(ft_strdup(*argv)), compare);
+		++(args->nargs);
 		++argv;
 	}
 }
@@ -75,6 +77,7 @@ static void		fill_trees(t_arguments *args, char **argv, int (*compare)())
 void			get_arguments(t_arguments *args, char **argv, int (*compare)())
 {
 	args->dirs = 0;
+	args->nargs = 0;
 	args->files = init_entry(0);
 	args->bad_args = 0;
 	fill_trees(args, argv, compare);
