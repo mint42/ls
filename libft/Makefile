@@ -6,17 +6,17 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 14:31:20 by rreedy            #+#    #+#              #
-#    Updated: 2019/01/22 06:44:56 by rreedy           ###   ########.fr        #
+#    Updated: 2019/02/19 18:01:42 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := libftprintf.a
+NAME := libft.a
 
 POBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/ft_printf/*.c))
 LOBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/*.c))
 
-CFLAGS += -g -Wall -Wextra -Werror -I./includes
-LFLAGS += -L./ -lftprintf
+CFLAGS += -Wall -Wextra -Werror -I./includes
+LFLAGS += -L./ -lft
 
 .PHONY: all clean fclean re
 

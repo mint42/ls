@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 16:39:54 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/19 18:25:42 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@
 
 int		print_bad_option(char c)
 {
-	ft_printfd(2, "ls: illegal option -- %c\nusage: ls [-%s] [file ...]\n",
-			c, ALL_OPTIONS);
-	return (-1);
+	ft_printfd(2,
+		"ft_ls: illegal option -- %c\nusage: ft_ls [-%s] [file ...]\n",
+		c, ALL_OPTIONS);
+	return (1);
 }
 
 /*

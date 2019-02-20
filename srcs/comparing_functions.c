@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 18:07:01 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/19 18:08:39 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		compare_default(char *path1, char *path2)
 		++path1;
 		++path2;
 	}
-	if (*path1 == '/') 
+	if (*path1 == '/')
 		return (-1);
 	if (*path2 == '/')
 		return (1);
@@ -33,7 +33,7 @@ int		compare_reverse(char *path1, char *path2)
 		++path1;
 		++path2;
 	}
-	if (*path1 == '/') 
+	if (*path1 == '/')
 		return (1);
 	if (*path2 == '/')
 		return (-1);
@@ -63,5 +63,5 @@ int		compare_time_reverse(char *path1, char *path2)
 	tmptime = stats.st_mtime;
 	lstat(path2, &stats);
 	diff = tmptime - stats.st_mtime;
-	return ((diff) ? diff : compare_reverse(path2, path1));
+	return ((diff) ? diff : compare_reverse(path1, path2));
 }

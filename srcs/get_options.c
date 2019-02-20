@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:52:09 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 15:22:10 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/19 18:29:48 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static print		get_print_function(int ops)
 		[OP_G] = print_default_colors,
 		[OP_L] = print_long,
 		[OP_GL] = print_long_colors,
-	//	[OP_X] = print_horizontal,
-	//	[OP_Y] = print_vertical,
 	};
 
 	print = print_table[ops & OP_PRINT];
@@ -76,6 +74,8 @@ static void			fill_flags(int *ops, char ***argv)
 	all_ops = ALL_OPTIONS;
 	while ((*ops != -1) && ++(*argv) && (**argv) && ((***argv) == '-'))
 	{
+		if (ft_strequ(**argv, "-"))
+				break ;
 		if (ft_strequ(**argv, "--"))
 		{
 			++(*argv);

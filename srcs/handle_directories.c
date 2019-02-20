@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:18:59 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 17:58:02 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/19 17:34:53 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ void			print_dirs(t_binarytree **dirs, int nargs, t_options ops,
 	ft_treedel(&(T_ENTRY(*dirs)->files), delete_file);
 	if (*dirs && (*dirs)->right)
 		print_dirs(&(*dirs)->right, nargs, ops, newline);
-	ft_strdel(&(T_ENTRY(*dirs)->path));
+	delete_entry((t_entry **)&(*dirs)->content);
 	ft_memdel((void **)dirs);
 }
