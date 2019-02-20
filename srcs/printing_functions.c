@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:53 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 15:39:07 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/19 19:21:50 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	print_default(t_file *file, t_entry *entry)
 
 void	print_long_colors(t_file *file, t_entry *entry)
 {
-	ft_printf("%s%*d %-*s%-*s%*d %s %s%s\e[m -> %s\n",
+	ft_printf("%s%*u %-*s%-*s%*u %s %s%s\e[m -> %s\n",
 		file->rights,
 		entry->max_links_len + 2, file->links,
 		entry->max_username_len + 2, file->username,
@@ -44,7 +44,7 @@ void	print_long(t_file *file, t_entry *entry)
 
 	if (file)
 	{
-		ft_printf("%s%*d %-*s%-*s%*d %s %s",
+		ft_printf("%s%*u %-*s%-*s%*u %s %s",
 				file->rights,
 				entry->max_links_len + 2, file->links,
 				entry->max_username_len + 2, file->username,

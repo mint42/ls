@@ -6,11 +6,10 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/28 14:20:39 by rreedy            #+#    #+#             */
-/*   Updated: 2018/06/01 16:25:50 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/19 18:56:53 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "libft.h"
 
 void	ft_lstadd(t_list **head, t_list *link)
