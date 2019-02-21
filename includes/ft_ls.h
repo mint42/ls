@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 17:09:47 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/20 17:52:09 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define OP_G (0x40)
 # define OP_GL (0x60)
 # define OP_A (0x80)
+# define OP_1 (0x100)
 # define OP_PRINT (0x63)
 # define OP_COMPARE (0x14)
 # define ALL_OPTIONS "1aglrRtxy"
