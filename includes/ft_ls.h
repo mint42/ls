@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 17:00:42 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/20 17:09:47 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # include <stdlib.h>
 # include <string.h>
 # include <errno.h>
-# include "ft_printf.h"
+# include "libft.h"
+# include "config.h"
 
 # define SECONDS_IN_6_MONTHS (15778476)
-
 # define OP_NULL (0x0)
 # define OP_Y (0x1)
 # define OP_X (0x2)
@@ -38,7 +38,7 @@
 # define OP_A (0x80)
 # define OP_PRINT (0x63)
 # define OP_COMPARE (0x14)
-# define ALL_OPTIONS "aglrRtxy"
+# define ALL_OPTIONS "1aglrRtxy"
 # define T_ENTRY(binarytree) ((t_entry *)((binarytree)->content))
 # define T_BAD_ARG(binarytree) ((t_bad_arg *)((binarytree)->content))
 # define T_FILE_F(binarytree) ((t_file *)((binarytree)->content))
@@ -47,6 +47,7 @@
 
 typedef int				(*compare)();
 typedef void			(*print)();
+
 
 typedef struct			s_file
 {
@@ -59,13 +60,13 @@ typedef struct			s_file
 	unsigned int		groupname_len;
 	char				*date;
 	time_t				time;
-	char				*symlink_path;
 	unsigned int		links;
 	unsigned int		links_len;
 	unsigned long int	bytes;
 	unsigned int		bytes_len;
 	unsigned int		blocks;
 	unsigned int		bad_access;
+	char				*color;
 }						t_file;
 
 typedef struct			s_entry
@@ -85,7 +86,6 @@ typedef struct			s_bad_arg
 	char				*error_message;
 }						t_bad_arg;
 
-
 typedef struct			s_arguments
 {
 	t_binarytree		*dirs;
@@ -100,7 +100,6 @@ typedef struct			s_options
 	int					(*compare)();
 	void				(*print)();
 }						t_options;
-
 
 /*
 **	get_options.c and get_arguments.c
@@ -154,4 +153,6 @@ void					print_default(t_file *file, t_entry *entry);
 void					print_default_colors(t_file *file, t_entry *entry);
 void					print_long(t_file *file, t_entry *entry);
 void					print_long_colors(t_file *file, t_entry *entry);
+
+char					*get_color(t_file *file);
 #endif

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 14:16:02 by rreedy            #+#    #+#             */
-/*   Updated: 2019/01/29 13:08:01 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/20 16:35:36 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "ft_binarytree.h"
+# include "ft_printf.h"
 
 # define SIGFIGS_I (f.len_i + f.trail_zeros)
 # define SIGFIGS_F (f.len_f + f.lead_zeros)
@@ -51,6 +52,7 @@ int					ft_ceiling(double n);
 char				*ft_crop(char **s, int in, size_t len);
 char				*ft_ctoa(int c);
 int					ft_cw(const char *s, int c);
+void				ft_delete_double_array(char ***double_array);
 double				ft_dpow(int n, int exponent);
 int					ft_floor(double n);
 char				*ft_ftoa(double n, int precision);

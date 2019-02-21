@@ -1,44 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_file.c                                        :+:      :+:    :+:   */
+/*   get_stats.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 16:54:13 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 16:24:52 by rreedy           ###   ########.fr       */
+/*   Created: 2019/02/20 14:05:21 by rreedy            #+#    #+#             */
+/*   Updated: 2019/02/20 16:44:27 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static char		*get_rights(struct stat stats)
+static char		*get_rights(t_file *file, struct stat stats)
 {
-	char			*rights;
 	unsigned int	bits;
 	int				i;
 
 	i = 10;
 	bits = (stats.st_mode) & (S_IRWXU | S_IRWXG | S_IRWXO);
-	rights = ft_strdup("-rwxrwxrwx");
+	file->rights = ft_strdup("-rwxrwxrwx");
 	while (--i >= 0)
 		if (!((bits >> i) & 1))
-			rights[9 - i] = '-';
-	if (S_ISREG(stats.st_mode))
-		return (rights);
-	else if (S_ISBLK(stats.st_mode))
-		rights[0] = 'b';
+			file->rights[9 - i] = '-';
+	if (ft_strchr(file->rights, 'x'))
+		file->color = COLOR_EXE;
+	if (S_ISBLK(stats.st_mode))
+		file->rights[0] = 'b';
 	else if (S_ISCHR(stats.st_mode))
-		rights[0] = 'c';
-	else if (S_ISDIR(stats.st_mode))
-		rights[0] = 'd';
-	else if (S_ISLNK(stats.st_mode))
-		rights[0] = 'l';
+		file->rights[0] = 'c';
+	else if (S_ISDIR(stats.st_mode) && (file->color = COLOR_DIR))
+		file->rights[0] = 'd';
+	else if (S_ISLNK(stats.st_mode) && (file->color = COLOR_LNK))
+		file->rights[0] = 'l';
 	else if (S_ISFIFO(stats.st_mode))
-		rights[0] = 'p';
+		file->rights[0] = 'p';
 	else if (S_ISSOCK(stats.st_mode))
-		rights[0] = 's';
-	return (rights);
+		file->rights[0] = 's';
+	return (file->rights);
 }
 
 static char		*get_date(struct stat stats)
@@ -61,7 +60,7 @@ static void		get_stats(t_file *file, char *file_name, char *file_path)
 		return ;
 	file->path = ft_strdup(file_path);
 	file->name = ft_strdup(file_name);
-	file->rights = get_rights(stats);
+	file->rights = get_rights(file, stats);
 	file->links = stats.st_nlink;
 	file->links_len = ft_numlen(file->links);
 	file->username = ft_strdup((getpwuid(stats.st_uid))->pw_name);

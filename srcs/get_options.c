@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:52:09 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/19 18:29:48 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/20 17:02:02 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,6 @@ static compare		get_compare_function(int ops)
 	return (compare);
 }
 
-/*
-**	function name:
-**		get_options
-**
-**	purpose:
-**		loop though argv and fill a bit encoded int (flags) that holds
-**		information about which flags that came from the command line. also
-**		move argv past the flag strings
-**
-**	variables:
-**		options		->	pointer to a bit encoded int to hold flags from the ls
-**						command. encoding: [a g l r R t x y]
-**		argv	  		->	pointer to list of arguments sent to main function
-**		all_options	->	string to hold all valid options
-**		cur		  	->	cursor pointer placed at the flag character in all_flags
-**						cooresponding to the flag character from argv
-**
-**	return:
-**		N/A
-**
-**	macros:
-**		ALL_OPTIONS	->	string containing all valid options for ls
-*/
-
 static void			fill_flags(int *ops, char ***argv)
 {
 	char	*all_ops;
@@ -85,10 +61,10 @@ static void			fill_flags(int *ops, char ***argv)
 		{
 			cur = ft_strchr(all_ops, ***argv);
 			if (cur)
-				*ops = ((OP_L | OP_X | OP_Y) & (1 << (7 - (cur - all_ops)))) ?
+				*ops = ((OP_L | OP_X | OP_Y) & (1 << (8 - (cur - all_ops)))) ?
 						((*ops & ~(*ops & (OP_L | OP_X | OP_Y))) |
-						(1 << (7 - (cur - all_ops)))) :
-						((*ops) | (1 << (7 - (cur - all_ops))));
+						(1 << (8 - (cur - all_ops)))) :
+						((*ops) | (1 << (8 - (cur - all_ops))));
 			else
 				*ops = -1;
 		}

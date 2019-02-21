@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 15:47:33 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/20 16:49:55 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_file	*init_file(void)
 	file->bytes = 0;
 	file->bytes_len = 0;
 	file->bad_access = 0;
+	file->color = COLOR_REG;
 	return (file);
 }
 
@@ -71,8 +72,6 @@ void	delete_file(t_file **file)
 			ft_strdel(&((*file)->groupname));
 		if ((*file)->date)
 			ft_strdel(&((*file)->date));
-		if ((*file)->symlink_path)
-			ft_strdel(&((*file)->symlink_path));
 		ft_memdel((void **)file);
 	}
 }
