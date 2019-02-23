@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 17:52:09 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:16:32 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,12 @@
 typedef int				(*compare)();
 typedef void			(*print)();
 
-
 typedef struct			s_file
 {
-	char				*path;
 	char				*name;
+	unsigned long int	sec;
+	unsigned long int	nsec;
+	char				*path;
 	char				*rights;
 	char				*username;
 	unsigned int		username_len;
@@ -73,6 +74,8 @@ typedef struct			s_file
 typedef struct			s_entry
 {
 	char				*path;
+	unsigned long int	sec;
+	unsigned long int	nsec;
 	unsigned int		max_username_len;
 	unsigned int		max_groupname_len;
 	unsigned int		max_links_len;
@@ -101,6 +104,13 @@ typedef struct			s_options
 	int					(*compare)();
 	void				(*print)();
 }						t_options;
+
+typedef struct			s_cmp
+{
+	char				*cmp_string;
+	unsigned long int	cmp_sec;
+	unsigned long int	cmp_nsec;
+}						t_cmp;
 
 /*
 **	get_options.c and get_arguments.c
@@ -145,10 +155,10 @@ void					delete_bad_arg(t_bad_arg **bad_arg);
 /*
 **	compare_functions.c and print_functions.c
 */
-int						compare_default(char *path1, char *path2);
-int						compare_reverse(char *path1, char *path2);
-int						compare_time(char *path1, char *path2);
-int						compare_time_reverse(char *path1, char *path2);
+int						compare_default(t_cmp *cmp1, t_cmp *cmp2);
+int						compare_reverse(t_cmp *cmp1, t_cmp *cmp2);
+int						compare_time(t_cmp *cmp1, t_cmp *cmp2);
+int						compare_time_reverse(t_cmp *cmp1, t_cmp *cmp2);
 
 void					print_default(t_file *file, t_entry *entry);
 void					print_default_colors(t_file *file, t_entry *entry);

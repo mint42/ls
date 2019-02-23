@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:33 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/16 14:21:55 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:21:19 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ t_bad_arg	*fill_bad_arg(char *path)
 }
 
 void		insert_bad_arg(t_binarytree **bad_args, t_bad_arg *content,
-				int (*compare)(char *s1, char *s2))
+				int (*compare)())
 {
 	if (!*bad_args)
 		*bad_args = ft_treenew(content);
 	else
 	{
-		if ((compare(content->path, T_BAD_ARG(*bad_args)->path)) >= 0)
+		if ((compare((t_cmp *)content, (t_cmp *)T_BAD_ARG(*bad_args))) >= 0)
 			insert_bad_arg(&(*bad_args)->right, content, compare);
 		else
 			insert_bad_arg(&(*bad_args)->left, content, compare);

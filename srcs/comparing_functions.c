@@ -6,74 +6,66 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 13:53:46 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:17:22 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		compare_default(char *path1, char *path2)
+int		compare_default(t_cmp *cmp1, t_cmp *cmp2)
 {
-	while (path1 && path2 && *path1 && *path2 && *path1 == *path2)
+	char	*s1;
+	char	*s2;
+
+	s1 = cmp1->cmp_string;
+	s2 = cmp2->cmp_string;
+	while (s1 && s2 && *s1 && *s2 && *s1 == *s2)
 	{
-		++path1;
-		++path2;
+		++s1;
+		++s2;
 	}
-	if (*path1 == '/')
+	if (*s1 == '/')
 		return (-1);
-	if (*path2 == '/')
+	if (*s2 == '/')
 		return (1);
-	return ((unsigned char)*path1 - (unsigned char)*path2);
+	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-int		compare_reverse(char *path1, char *path2)
+int		compare_reverse(t_cmp *cmp1, t_cmp *cmp2)
 {
-	while (path1 && path2 && *path1 && *path2 && *path1 == *path2)
+	char	*s1;
+	char	*s2;
+
+	s1 = cmp1->cmp_string;
+	s2 = cmp2->cmp_string;
+	while (s1 && s2 && *s1 && *s2 && *s1 == *s2)
 	{
-		++path1;
-		++path2;
+		++s1;
+		++s2;
 	}
-	if (*path1 == '/')
+	if (*s1 == '/')
 		return (1);
-	if (*path2 == '/')
+	if (*s2 == '/')
 		return (-1);
-	return ((unsigned char)*path2 - (unsigned char)*path1);
+	return ((unsigned char)*s2 - (unsigned char)*s1);
 }
 
-int		compare_time(char *path1, char *path2)
+int		compare_time(t_cmp *cmp1, t_cmp *cmp2)
 {
-	struct stat		stats;
-	time_t			tmptime;
-	time_t			tmptimensec;
 	long int		diff;
 
-	tmptime = 0;
-	tmptimensec = 0;
-	lstat(path1, &stats);
-	tmptime = stats.st_mtimespec.tv_sec;
-	tmptimensec = stats.st_mtimespec.tv_nsec;
-	lstat(path2, &stats);
-	diff = stats.st_mtimespec.tv_sec - tmptime;
+	diff = cmp2->cmp_sec - cmp1->cmp_sec;
 	if (!diff)
-		diff = stats.st_mtimespec.tv_nsec - tmptimensec;
-	return ((diff) ? diff : compare_default(path1, path2));
+		diff = cmp2->cmp_nsec - cmp1->cmp_nsec;
+	return ((diff) ? diff : compare_default(cmp1, cmp2));
 }
 
-int		compare_time_reverse(char *path1, char *path2)
+int		compare_time_reverse(t_cmp *cmp1, t_cmp *cmp2)
 {
-	struct stat		stats;
-	time_t			tmptime;
-	time_t			tmptimensec;
 	long int		diff;
 
-	tmptime = 0;
-	tmptimensec = 0;
-	lstat(path1, &stats);
-	tmptime = stats.st_mtimespec.tv_sec;
-	tmptimensec = stats.st_mtimespec.tv_nsec;
-	lstat(path2, &stats);
-	diff = tmptime - stats.st_mtimespec.tv_sec;
+	diff = cmp1->cmp_sec - cmp2->cmp_sec;
 	if (!diff)
-		diff = tmptimensec - stats.st_mtimespec.tv_nsec;
-	return ((diff) ? diff : compare_reverse(path1, path2));
+		diff = cmp1->cmp_nsec - cmp2->cmp_nsec;
+	return ((diff) ? diff : compare_default(cmp1, cmp2));
 }

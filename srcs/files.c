@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 15:18:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 16:49:55 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:21:59 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_file	*init_file(void)
 	t_file	*file;
 
 	file = (t_file *)ft_memalloc(sizeof(t_file));
+	file->path = 0;
 	file->name = 0;
 	file->rights = 0;
 	file->username = 0;
@@ -34,13 +35,13 @@ t_file	*init_file(void)
 }
 
 void	insert_file(t_binarytree **files, t_file *content,
-				int (*compare)(char *s1, char *s2))
+				int (*compare)())
 {
 	if (!*files)
 		*files = ft_treenew(content);
 	else
 	{
-		if (compare(content->path, T_FILE_F(*files)->path) >= 0)
+		if (compare((t_cmp *)content, (t_cmp *)T_FILE_F(*files)) >= 0)
 			insert_file(&(*files)->right, content, compare);
 		else
 			insert_file(&(*files)->left, content, compare);

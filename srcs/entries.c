@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:57:36 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/15 17:24:23 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:21:52 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,22 @@ t_entry		*init_entry(char *path)
 }
 
 void		insert_entry(t_binarytree **dirs, t_entry *content,
-				int (*compare)(char *s1, char *s2))
+				int (*compare)())
 {
 	if (!*dirs)
 		*dirs = ft_treenew(content);
 	else
 	{
-		if ((compare(content->path, T_ENTRY(*dirs)->path)) >= 0)
-			insert_entry(&(*dirs)->right, content, compare);
+		if (ft_count_c(content->path, '/') >
+			ft_count_c(T_ENTRY(*dirs)->path, '/'))
+				insert_entry(&(*dirs)->left, content, compare);
 		else
-			insert_entry(&(*dirs)->left, content, compare);
+		{
+			if ((compare((t_cmp *)content, (t_cmp *)T_ENTRY(*dirs))) >= 0)
+				insert_entry(&(*dirs)->right, content, compare);
+			else
+				insert_entry(&(*dirs)->left, content, compare);
+		}
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:05:21 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 16:44:27 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:26:59 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ static char		*get_date(struct stat stats)
 {
 	char	*date;
 
-	date = ctime(&stats.st_mtime);
-	if ((time(NULL) - stats.st_mtime) > SECONDS_IN_6_MONTHS)
+	date = ctime(&stats.st_mtimespec.tv_sec);
+	if ((time(NULL) - SECONDS_IN_6_MONTHS) > stats.st_mtime)
+		ft_sprintf(&date, "%-8.6s%.4s", date + 4, date + 20);
+	else if ((time(NULL) + SECONDS_IN_6_MONTHS) < stats.st_mtime)
 		ft_sprintf(&date, "%-8.6s%.4s", date + 4, date + 20);
 	else
 		ft_sprintf(&date, "%.12s", date + 4);
@@ -70,7 +72,8 @@ static void		get_stats(t_file *file, char *file_name, char *file_path)
 	file->bytes = stats.st_size;
 	file->bytes_len = ft_numlen(file->bytes);
 	file->date = get_date(stats);
-	file->time = stats.st_mtime;
+	file->sec = stats.st_mtimespec.tv_sec;
+	file->nsec = stats.st_mtimespec.tv_nsec;
 	file->blocks = stats.st_blocks;
 }
 

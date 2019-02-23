@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 14:16:02 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 16:35:36 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/21 20:42:22 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ double				ft_absd(double n);
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t len);
 int					ft_ceiling(double n);
+int					ft_count_c(char *s, char c);
 char				*ft_crop(char **s, int in, size_t len);
 char				*ft_ctoa(int c);
 int					ft_cw(const char *s, int c);
@@ -121,6 +122,7 @@ int					ft_strnequ(const char *s1, const char *s2, size_t len);
 char				*ft_strnew(size_t size);
 char				*ft_strnstr(const char *s1, const char *s2, size_t len);
 char				*ft_strrchr(const char *s, int c);
+char				*ft_strrchrb(const char *s, int c);
 char				**ft_strsplit(const char *s, char c);
 char				*ft_strstr(const char *s1, const char *s2);
 char				*ft_strsub(const char *s, unsigned int start, size_t len);

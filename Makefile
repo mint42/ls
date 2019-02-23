@@ -6,7 +6,7 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 18:40:55 by rreedy            #+#    #+#              #
-#    Updated: 2019/02/20 17:39:46 by rreedy           ###   ########.fr        #
+#    Updated: 2019/02/22 17:27:51 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ LIB += libft/libft.a
 
 OBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/*.c))
 
+CC := gcc
 INCLUDES := -I./includes -I./libft/includes
 CFLAGS += -Wall -Wextra -Werror $(INCLUDES)
 LFLAGS += -L./libft -lft
