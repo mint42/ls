@@ -6,17 +6,16 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 13:52:09 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 17:51:11 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 18:00:42 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static print		get_print_function(int ops)
+static void		*get_print_function(int ops)
 {
 	void			(*print)();
-	static void		(*print_table[OP_PRINT])() = 
-	{
+	static void		(*print_table[OP_PRINT])() = {
 		[OP_NULL] = print_default,
 		[OP_G] = print_default_colors,
 		[OP_L] = print_long,
@@ -27,11 +26,10 @@ static print		get_print_function(int ops)
 	return (print);
 }
 
-static compare		get_compare_function(int ops)
+static void		*get_compare_function(int ops)
 {
 	int				(*compare)();
-	static int		(*compare_table[OP_COMPARE + 1])() = 
-	{
+	static int		(*compare_table[OP_COMPARE + 1])() = {
 		[OP_NULL] = compare_default,
 		[OP_R] = compare_reverse,
 		[OP_T] = compare_time,
@@ -42,17 +40,19 @@ static compare		get_compare_function(int ops)
 	return (compare);
 }
 
-static int			get_ops(int ops, char *cur, char *all_ops)
+static int		get_ops(int ops, char *cur, char *all_ops)
 {
-	if ((OP_1 | OP_L | OP_X | OP_Y) & (1 << (8 - (cur - all_ops)))) 
+	if ((OP_1 | OP_L | OP_X | OP_Y) & (1 << (8 - (cur - all_ops))))
+	{
 		ops = (ops & ~(ops & (OP_1 | OP_L | OP_X | OP_Y))) |
 			(1 << (8 - (cur - all_ops)));
+	}
 	else
 		ops = (ops) | (1 << (8 - (cur - all_ops)));
 	return (ops);
 }
 
-static void			fill_flags(int *ops, char ***argv)
+static void		fill_flags(int *ops, char ***argv)
 {
 	char	*all_ops;
 	char	*cur;
@@ -61,7 +61,7 @@ static void			fill_flags(int *ops, char ***argv)
 	while ((*ops != -1) && ++(*argv) && (**argv) && ((***argv) == '-'))
 	{
 		if (ft_strequ(**argv, "-"))
-				break ;
+			break ;
 		if (ft_strequ(**argv, "--"))
 		{
 			++(*argv);

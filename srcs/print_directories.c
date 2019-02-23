@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 14:05:10 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:26:23 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:38:43 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 	t_entry	*entry;
 	t_file	*file;
 	char	*file_path;
-	
+
 	file_path = get_file_path(T_ENTRY(*dirs)->path, file_name);
 	file = handle_file(T_ENTRY(*dirs), file_name, file_path, ops.compare);
 	if ((ops.flags & OP_BIGR) && file && file->rights && *(file->rights) == 'd'

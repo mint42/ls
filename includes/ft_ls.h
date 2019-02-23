@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:16:32 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:56:42 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@
 # define T_FILE_F(binarytree) ((t_file *)((binarytree)->content))
 # define T_FILE_E(entry) ((t_file *)((entry)->files->content))
 # define T_FILE_D(binarytree) T_FILE_E(T_ENTRY(binarytree))
-
-typedef int				(*compare)();
-typedef void			(*print)();
 
 typedef struct			s_file
 {
@@ -115,25 +112,29 @@ typedef struct			s_cmp
 /*
 **	get_options.c and get_arguments.c
 */
+
 void					get_options(t_options *ops, char ***argv);
 void					get_arguments(t_arguments *args, char **argv,
 							int (*compare)());
 
 /*
-**	handle_file.c
+**	get_stats.c
 */
+
 t_file					*handle_file(t_entry *entry, char *file_name,
 							char *file_path, int (*compare)());
 
 /*
-**	handle_directories.c
+**	print_directories.c
 */
+
 void					print_dirs(t_binarytree **dirs, int nargs,
 							t_options options, int newline);
 
 /*
 **	files.c, entries.c, and bad_args.c
 */
+
 t_file					*init_file(void);
 void					insert_file(t_binarytree **files,
 							t_file *content, int (*compare)());
@@ -153,8 +154,9 @@ void					print_bad_arg(t_binarytree *node);
 void					delete_bad_arg(t_bad_arg **bad_arg);
 
 /*
-**	compare_functions.c and print_functions.c
+**	comparing_functions.c and printing_functions.c
 */
+
 int						compare_default(t_cmp *cmp1, t_cmp *cmp2);
 int						compare_reverse(t_cmp *cmp1, t_cmp *cmp2);
 int						compare_time(t_cmp *cmp1, t_cmp *cmp2);
@@ -165,5 +167,10 @@ void					print_default_colors(t_file *file, t_entry *entry);
 void					print_long(t_file *file, t_entry *entry);
 void					print_long_colors(t_file *file, t_entry *entry);
 
+/*
+**	colors.c
+*/
+
 char					*get_color(t_file *file);
+
 #endif

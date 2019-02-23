@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/14 14:57:36 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:21:52 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:40:28 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void		insert_entry(t_binarytree **dirs, t_entry *content,
 	{
 		if (ft_count_c(content->path, '/') >
 			ft_count_c(T_ENTRY(*dirs)->path, '/'))
-				insert_entry(&(*dirs)->left, content, compare);
+		{
+			insert_entry(&(*dirs)->left, content, compare);
+		}
 		else
 		{
 			if ((compare((t_cmp *)content, (t_cmp *)T_ENTRY(*dirs))) >= 0)

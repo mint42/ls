@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:04:27 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 17:38:48 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 17:37:31 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,8 @@
 # define COLOR_EXE "\e[1;32m"
 # define COLOR_IMG "\e[0;33m"
 # define COLOR_ZIP "\e[1;36m"
-//# define IMG_EXTENSIONS ".png:.jpg:.jpeg:.gif:.bmp:.tiff"
-//# define ZIP_EXTENSIONS ".tar:.gz:.tar.gz:.zip:.rar:.7z"
 
-static char		*g_img_extensions[7] = 
+static char		*g_img_extensions[7] =
 {
 	".bmp",
 	".gif",

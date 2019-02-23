@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:17:22 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/22 18:08:10 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,7 @@ int		compare_default(t_cmp *cmp1, t_cmp *cmp2)
 
 int		compare_reverse(t_cmp *cmp1, t_cmp *cmp2)
 {
-	char	*s1;
-	char	*s2;
-
-	s1 = cmp1->cmp_string;
-	s2 = cmp2->cmp_string;
-	while (s1 && s2 && *s1 && *s2 && *s1 == *s2)
-	{
-		++s1;
-		++s2;
-	}
-	if (*s1 == '/')
-		return (1);
-	if (*s2 == '/')
-		return (-1);
-	return ((unsigned char)*s2 - (unsigned char)*s1);
+	return (compare_default(cmp2, cmp1));
 }
 
 int		compare_time(t_cmp *cmp1, t_cmp *cmp2)
@@ -62,10 +48,5 @@ int		compare_time(t_cmp *cmp1, t_cmp *cmp2)
 
 int		compare_time_reverse(t_cmp *cmp1, t_cmp *cmp2)
 {
-	long int		diff;
-
-	diff = cmp1->cmp_sec - cmp2->cmp_sec;
-	if (!diff)
-		diff = cmp1->cmp_nsec - cmp2->cmp_nsec;
-	return ((diff) ? diff : compare_default(cmp1, cmp2));
+	return (compare_time(cmp2, cmp1));
 }
