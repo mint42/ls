@@ -6,7 +6,7 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 18:40:55 by rreedy            #+#    #+#              #
-#    Updated: 2019/02/22 17:27:51 by rreedy           ###   ########.fr        #
+#    Updated: 2019/02/22 18:23:26 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,9 +22,9 @@ LFLAGS += -L./libft -lft
 
 .PHONY: all clean fclean re
 
-all: $(LIB) $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 $(LIB):
