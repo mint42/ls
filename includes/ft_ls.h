@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:56:42 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/25 19:01:14 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define OP_PRINT (0x63)
 # define OP_COMPARE (0x14)
 # define ALL_OPTIONS "1aglrRtxy"
+# define MAJOR(dev) (dev >> 24)
+# define MINOR(dev) (dev & 0xFFFFFF)
 # define T_ENTRY(binarytree) ((t_entry *)((binarytree)->content))
 # define T_BAD_ARG(binarytree) ((t_bad_arg *)((binarytree)->content))
 # define T_FILE_F(binarytree) ((t_file *)((binarytree)->content))
@@ -54,15 +56,19 @@ typedef struct			s_file
 	char				*path;
 	char				*rights;
 	char				*username;
-	unsigned int		username_len;
+	size_t				username_len;
 	char				*groupname;
-	unsigned int		groupname_len;
+	size_t				groupname_len;
 	char				*date;
 	time_t				time;
 	unsigned int		links;
-	unsigned int		links_len;
+	size_t				links_len;
 	unsigned long int	bytes;
-	unsigned int		bytes_len;
+	size_t				bytes_len;
+	int					major;
+	size_t				major_len;
+	int					minor;
+	size_t				minor_len;
 	unsigned int		blocks;
 	unsigned int		bad_access;
 	char				*color;
@@ -77,6 +83,8 @@ typedef struct			s_entry
 	unsigned int		max_groupname_len;
 	unsigned int		max_links_len;
 	unsigned int		max_bytes_len;
+	unsigned int		max_major_len;
+	unsigned int		max_minor_len;
 	unsigned int		total_blocks;
 	t_binarytree		*files;
 }						t_entry;
@@ -110,29 +118,44 @@ typedef struct			s_cmp
 }						t_cmp;
 
 /*
-**	get_options.c and get_arguments.c
+**	get_commandline_options.c
+**	get_command_line_arguments.c
 */
 
 void					get_options(t_options *ops, char ***argv);
 void					get_arguments(t_arguments *args, char **argv,
-							int (*compare)());
+							t_options ops);
 
 /*
-**	get_stats.c
-*/
-
-t_file					*handle_file(t_entry *entry, char *file_name,
-							char *file_path, int (*compare)());
-
-/*
-**	print_directories.c
+**	ls.c
 */
 
 void					print_dirs(t_binarytree **dirs, int nargs,
 							t_options options, int newline);
 
 /*
-**	files.c, entries.c, and bad_args.c
+**	handle_file.c
+*/
+
+t_file					*handle_file(t_entry *entry, char *file_name,
+							char *file_path, t_options ops);
+
+/*
+**	get_stat_date.c
+**	get_stat_rights.c
+**	get_stat_id.c
+**	get_stat_size.c
+*/
+
+void					get_rights(t_file *file, struct stat stats);
+void					get_id(t_file *file, struct stat stats);
+void					get_size(t_file *file, struct stat stats);
+void					get_date(t_file *file, struct stat stats);
+
+/*
+**	struct_files.c
+**	struct_entries.c
+**	struct_bad_args.c
 */
 
 t_file					*init_file(void);
@@ -154,7 +177,8 @@ void					print_bad_arg(t_binarytree *node);
 void					delete_bad_arg(t_bad_arg **bad_arg);
 
 /*
-**	comparing_functions.c and printing_functions.c
+**	functions_for_comparing.c
+**	functions_for_printing.c
 */
 
 int						compare_default(t_cmp *cmp1, t_cmp *cmp2);

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:56:35 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 17:14:22 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/25 17:10:22 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ char			*get_color(t_file *file)
 	if (!ft_strequ(color, COLOR_REG))
 		return (color);
 	color = color_code(file->name, g_zip_extensions, COLOR_ZIP);
+	if (!ft_strequ(color, COLOR_REG))
+		return (color);
+	color = color_code(file->name, g_dot_c, COLOR_DOTC);
 	if (!ft_strequ(color, COLOR_REG))
 		return (color);
 	return (file->color);

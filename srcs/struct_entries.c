@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   entries.c                                          :+:      :+:    :+:   */
+/*   struct_entries.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/14 14:57:36 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:40:28 by rreedy           ###   ########.fr       */
+/*   Created: 2019/02/25 16:55:52 by rreedy            #+#    #+#             */
+/*   Updated: 2019/02/25 16:55:53 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ t_entry		*init_entry(char *path)
 	entry->max_username_len = 0;
 	entry->max_links_len = 0;
 	entry->max_bytes_len = 0;
+	entry->max_major_len = 0;
+	entry->max_minor_len = 0;
 	entry->total_blocks = 0;
 	return (entry);
 }

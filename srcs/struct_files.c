@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   files.c                                            :+:      :+:    :+:   */
+/*   struct_files.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/01 15:18:15 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:21:59 by rreedy           ###   ########.fr       */
+/*   Created: 2019/02/25 16:55:58 by rreedy            #+#    #+#             */
+/*   Updated: 2019/02/25 16:56:00 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,10 @@ t_file	*init_file(void)
 	file->links_len = 0;
 	file->bytes = 0;
 	file->bytes_len = 0;
+	file->major = -1;
+	file->major_len = 0;
+	file->minor = -1;
+	file->minor_len = 0;
 	file->bad_access = 0;
 	file->color = COLOR_REG;
 	return (file);

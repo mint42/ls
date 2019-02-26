@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_directories.c                                :+:      :+:    :+:   */
+/*   ls.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/20 14:05:10 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 17:38:43 by rreedy           ###   ########.fr       */
+/*   Created: 2019/02/25 17:03:17 by rreedy            #+#    #+#             */
+/*   Updated: 2019/02/25 17:03:19 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void		print_error(char *path)
 {
-	ft_printf("ft_ls: %s: %s\n", ft_strrchr(path, '/') + 1, strerror(errno));
+	ft_printfd(2,
+		"ft_ls: %s: %s\n", ft_strrchr(path, '/') + 1, strerror(errno));
 }
 
 static char		*get_file_path(char *dir_path, char *file_name)
@@ -25,10 +26,19 @@ static char		*get_file_path(char *dir_path, char *file_name)
 
 	dir_path_len = ft_strlen(dir_path);
 	file_name_len = ft_strlen(file_name);
-	new_path = ft_strnew(dir_path_len + 1 + file_name_len);
-	ft_strncpy(new_path, dir_path, dir_path_len);
-	new_path[dir_path_len] = '/';
-	ft_strncpy(new_path + dir_path_len + 1, file_name, file_name_len);
+	if (dir_path_len == 1 && *dir_path == '/')
+	{
+		new_path = ft_strnew(dir_path_len + file_name_len);
+		*new_path = '/';
+		ft_strncpy(new_path + dir_path_len, file_name, file_name_len);
+	}
+	else
+	{
+		new_path = ft_strnew(dir_path_len + 1 + file_name_len);
+		ft_strncpy(new_path, dir_path, dir_path_len);
+		new_path[dir_path_len] = '/';
+		ft_strncpy(new_path + dir_path_len + 1, file_name, file_name_len);
+	}
 	return (new_path);
 }
 
@@ -39,7 +49,13 @@ static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 	char	*file_path;
 
 	file_path = get_file_path(T_ENTRY(*dirs)->path, file_name);
-	file = handle_file(T_ENTRY(*dirs), file_name, file_path, ops.compare);
+	file = handle_file(T_ENTRY(*dirs), file_name, file_path, ops);
+	if (!file)
+	{
+		ft_treedel(&(T_ENTRY(*dirs)->files), delete_file);
+		ft_strdel(&file_path);
+		return ;
+	}
 	if ((ops.flags & OP_BIGR) && file && file->rights && *(file->rights) == 'd'
 			&& !ft_strequ(file->name, ".") && !ft_strequ(file->name, ".."))
 	{

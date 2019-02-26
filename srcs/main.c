@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/20 17:02:11 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/23 19:25:06 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		main(int argc, char **argv)
 	get_options(&ops, &argv);
 	if (ops.flags == -1)
 		return (print_bad_option(**argv));
-	get_arguments(&arguments, argv, ops.compare);
+	get_arguments(&arguments, argv, ops);
 	if (arguments.bad_args)
 		ft_treeiterdel(&(arguments.bad_args), print_bad_arg, delete_bad_arg);
 	if ((arguments.files)->files)
