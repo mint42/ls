@@ -6,7 +6,7 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/04/18 14:31:20 by rreedy            #+#    #+#              #
-#    Updated: 2019/02/25 19:20:06 by rreedy           ###   ########.fr        #
+#    Updated: 2019/02/28 16:31:36 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC := gcc
 POBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/ft_printf/*.c))
 LOBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/*.c))
 
-CFLAGS += -Wall -Wextra -Werror -I./includes
+CFLAGS += -g -Wall -Wextra -Werror -I./includes
 LFLAGS += -L./ -lft
 
 .PHONY: all clean fclean re

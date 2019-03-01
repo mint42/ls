@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/17 14:16:02 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/21 20:42:22 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/28 17:16:57 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-long int			ft_abs(long int n);
+long long int		ft_abs(long long int n);
 double				ft_absd(double n);
 int					ft_atoi(const char *str);
 void				ft_bzero(void *s, size_t len);
