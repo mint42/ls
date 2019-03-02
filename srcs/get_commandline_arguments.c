@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:07 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 16:47:22 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/01 20:04:14 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		fill_trees(t_arguments *args, char **argv, t_options ops)
 	}
 	while (*argv)
 	{
-		if (lstat(*argv, &stats) == 0)
+		if (!((ops.flags & OP_L) ? lstat(*argv, &stats) : stat(*argv, &stats)))
 		{
 			if (S_ISDIR(stats.st_mode))
 			{
