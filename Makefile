@@ -6,7 +6,7 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 18:40:55 by rreedy            #+#    #+#              #
-#    Updated: 2019/02/28 16:31:11 by rreedy           ###   ########.fr        #
+#    Updated: 2019/03/01 18:11:44 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ OBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/*.c))
 
 CC := gcc
 INCLUDES := -I./includes -I./libft/includes
-CFLAGS += -g -Wall -Wextra -Werror $(INCLUDES)
+CFLAGS += -Wall -Wextra -Werror $(INCLUDES)
 LFLAGS += -L./libft -lft
 
 .PHONY: all clean fclean re

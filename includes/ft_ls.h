@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 19:01:14 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/01 18:13:55 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void					get_arguments(t_arguments *args, char **argv,
 							t_options ops);
 
 /*
-**	ls.c
+**	print_directories.c
 */
 
 void					print_dirs(t_binarytree **dirs, int nargs,

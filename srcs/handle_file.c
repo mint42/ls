@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:06:22 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 18:02:09 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/02/28 19:10:27 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static int		get_stats(t_file *file, char *file_name, char *file_path)
 {
 	struct stat		stats;
 
-	if (lstat(file_path, &stats))
-		return (1);
 	file->path = ft_strdup(file_path);
 	file->name = ft_strdup(file_name);
+	if (lstat(file_path, &stats))
+		return (1);
 	get_rights(file, stats);
 	get_id(file, stats);
 	get_size(file, stats);
@@ -65,12 +65,10 @@ t_file			*handle_file(t_entry *entry, char *file_name, char *file_path,
 	error = 0;
 	file = init_file();
 	error = get_stats(file, file_name, file_path);
-	if (error)
+	if (error && ((OP_L | OP_T | OP_BIGR | OP_G) & ops.flags))
 	{
-		if ((OP_L | OP_T | OP_BIGR | OP_G) & ops.flags)
-			return (0);
-		file->name = ft_strdup(file_name);
-		file->path = ft_strdup(file_path);
+		delete_file(&file);
+		return (0);
 	}
 	update_entry(file, entry);
 	insert_file(&((entry)->files), file, ops.compare);

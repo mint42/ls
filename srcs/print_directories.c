@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls.c                                               :+:      :+:    :+:   */
+/*   print_directories.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/25 17:03:17 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 17:03:19 by rreedy           ###   ########.fr       */
+/*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
+/*   Updated: 2019/03/01 18:14:22 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 
 	file_path = get_file_path(T_ENTRY(*dirs)->path, file_name);
 	file = handle_file(T_ENTRY(*dirs), file_name, file_path, ops);
-	if (!file)
-	{
-		ft_treedel(&(T_ENTRY(*dirs)->files), delete_file);
-		ft_strdel(&file_path);
-		return ;
-	}
 	if ((ops.flags & OP_BIGR) && file && file->rights && *(file->rights) == 'd'
 			&& !ft_strequ(file->name, ".") && !ft_strequ(file->name, ".."))
 	{
