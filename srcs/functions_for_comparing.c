@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/22 18:08:10 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/01 20:36:39 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,6 @@ int		compare_default(t_cmp *cmp1, t_cmp *cmp2)
 		++s1;
 		++s2;
 	}
-	if (*s1 == '/')
-		return (-1);
-	if (*s2 == '/')
-		return (1);
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
