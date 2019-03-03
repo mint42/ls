@@ -6,13 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:06:22 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/28 19:10:27 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 13:50:52 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int		get_stats(t_file *file, char *file_name, char *file_path)
+static int		get_stats(t_file *file, char *file_name, char *file_path,
+					t_options ops)
 {
 	struct stat		stats;
 
@@ -21,14 +22,17 @@ static int		get_stats(t_file *file, char *file_name, char *file_path)
 	if (lstat(file_path, &stats))
 		return (1);
 	get_rights(file, stats);
-	get_id(file, stats);
-	get_size(file, stats);
-	get_date(file, stats);
-	file->links = stats.st_nlink;
-	file->links_len = ft_numlen(file->links);
 	file->sec = stats.st_mtimespec.tv_sec;
 	file->nsec = stats.st_mtimespec.tv_nsec;
-	file->blocks = stats.st_blocks;
+	if (ops.flags & OP_L)
+	{
+		get_size(file, stats);
+		get_date(file, stats);
+		get_id(file, stats);
+		file->links = stats.st_nlink;
+		file->links_len = ft_numlen(file->links);
+		file->blocks = stats.st_blocks;
+	}
 	return (0);
 }
 
@@ -64,7 +68,7 @@ t_file			*handle_file(t_entry *entry, char *file_name, char *file_path,
 
 	error = 0;
 	file = init_file();
-	error = get_stats(file, file_name, file_path);
+	error = get_stats(file, file_name, file_path, ops);
 	if (error && ((OP_L | OP_T | OP_BIGR | OP_G) & ops.flags))
 	{
 		delete_file(&file);
