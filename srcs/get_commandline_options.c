@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 16:47:34 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/01 22:49:43 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 static void		*get_print_function(int ops)
 {
 	void			(*print)();
-	static void		(*print_table[OP_PRINT])() = {
+	static void		(*print_table[OP_PRINT + 1])() = {
 		[OP_NULL] = print_default,
+		[OP_1] = print_default,
 		[OP_G] = print_default_colors,
+		[OP_1G] = print_default_colors,
 		[OP_L] = print_long,
-		[OP_GL] = print_long_colors,
+		[OP_LG] = print_long_colors,
 	};
 
 	print = print_table[ops & OP_PRINT];
@@ -42,13 +44,13 @@ static void		*get_compare_function(int ops)
 
 static int		get_ops(int ops, char *cur, char *all_ops)
 {
-	if ((OP_1 | OP_L | OP_X | OP_Y) & (1 << (8 - (cur - all_ops))))
+	if ((OP_1 | OP_L) & (1 << ((MAX_OPS - 1) - (cur - all_ops))))
 	{
-		ops = (ops & ~(ops & (OP_1 | OP_L | OP_X | OP_Y))) |
-			(1 << (8 - (cur - all_ops)));
+		ops = (ops & ~(ops & (OP_1 | OP_L))) |
+			(1 << ((MAX_OPS - 1) - (cur - all_ops)));
 	}
 	else
-		ops = (ops) | (1 << (8 - (cur - all_ops)));
+		ops = (ops) | (1 << ((MAX_OPS - 1) - (cur - all_ops)));
 	return (ops);
 }
 

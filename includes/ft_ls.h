@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/01 18:13:55 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/01 22:50:27 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,20 +26,20 @@
 
 # define SECONDS_IN_6_MONTHS (15778476)
 # define OP_NULL (0x0)
-# define OP_Y (0x1)
-# define OP_X (0x2)
-# define OP_T (0x4)
-# define OP_BIGR (0x8)
-# define OP_R (0x10)
-# define OP_RT (0x14)
-# define OP_L (0x20)
-# define OP_G (0x40)
-# define OP_GL (0x60)
-# define OP_A (0x80)
-# define OP_1 (0x100)
-# define OP_PRINT (0x63)
-# define OP_COMPARE (0x14)
-# define ALL_OPTIONS "1aglrRtxy"
+# define OP_1 (0x1)
+# define OP_T (0x2)
+# define OP_R (0x4)
+# define OP_RT (0x6)
+# define OP_L (0x8)
+# define OP_G (0x10)
+# define OP_1G (0x11)
+# define OP_LG (0x18)
+# define OP_A (0x20)
+# define OP_BIGR (0x40)
+# define OP_PRINT (0x18)
+# define OP_COMPARE (0x6)
+# define ALL_OPTIONS "Raglrt1"
+# define MAX_OPS (7)
 # define MAJOR(dev) (dev >> 24)
 # define MINOR(dev) (dev & 0xFFFFFF)
 # define T_ENTRY(binarytree) ((t_entry *)((binarytree)->content))
