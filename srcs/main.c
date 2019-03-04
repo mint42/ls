@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/01 22:21:25 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 16:47:57 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@ int		main(int argc, char **argv)
 {
 	t_arguments		arguments;
 	t_options		ops;
+	int				newline;
 
+	newline = 0;
 	(void)argc;
 	get_options(&ops, &argv);
 	if (ops.flags == -1)
@@ -41,6 +43,6 @@ int		main(int argc, char **argv)
 	}
 	ft_memdel((void **)&(arguments.files));
 	if (arguments.dirs)
-		print_dirs(&(arguments.dirs), arguments.nargs, ops, 0);
+		print_dirs(&(arguments.dirs), arguments.nargs, ops, &newline);
 	return (0);
 }

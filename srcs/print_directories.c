@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/01 18:14:22 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 16:48:58 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,15 +88,15 @@ static void		get_files(t_binarytree **dirs, t_options ops)
 }
 
 void			print_dirs(t_binarytree **dirs, int nargs, t_options ops,
-					int newline)
+					int *newline)
 {
 	if (*dirs && (*dirs)->left)
 		print_dirs(&(*dirs)->left, nargs, ops, newline);
 	get_files(dirs, ops);
-	if (newline)
+	if (*newline)
 		ft_putchar('\n');
 	else
-		newline = 1;
+		*newline = 1;
 	if (nargs > 1)
 		ft_printf("%s:\n", T_ENTRY(*dirs)->path);
 	else
