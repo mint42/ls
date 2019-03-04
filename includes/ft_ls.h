@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/03 16:48:20 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 20:11:10 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,16 +158,18 @@ void					get_date(t_file *file, struct stat stats);
 **	struct_bad_args.c
 */
 
-t_file					*init_file(void);
+t_file					*init_file(char *name, char *path);
 void					insert_file(t_binarytree **files,
 							t_file *content, int (*compare)());
 void					print_files(t_binarytree *files, t_entry *entry,
 							void (*print)());
 void					delete_file(t_file **file);
 
-t_entry					*init_entry(char *path);
+t_entry					*init_entry(char *path, unsigned long int sec, 
+							unsigned long int nsec);
 void					insert_entry(t_binarytree **entry,
-							t_entry *content, int (*compare)());
+							t_entry *content, int (*compare)(),
+							int commandline);
 void					delete_entry(t_entry **entry);
 
 t_bad_arg				*fill_bad_arg(char *path);

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:07 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/01 20:04:14 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 20:10:55 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ static void		fill_trees(t_arguments *args, char **argv, t_options ops)
 
 	if (!(*argv))
 	{
-		insert_entry(&(args->dirs), init_entry(ft_strdup(".")), ops.compare);
+		insert_entry(&(args->dirs), init_entry(ft_strdup("."), 0, 0),
+			ops.compare, 1);
 		return ;
 	}
 	while (*argv)
@@ -26,10 +27,9 @@ static void		fill_trees(t_arguments *args, char **argv, t_options ops)
 		if (!((ops.flags & OP_L) ? lstat(*argv, &stats) : stat(*argv, &stats)))
 		{
 			if (S_ISDIR(stats.st_mode))
-			{
-				insert_entry(&(args->dirs), init_entry(ft_strdup(*argv)),
-					ops.compare);
-			}
+				insert_entry(&(args->dirs), init_entry(ft_strdup(*argv),
+					stats.st_mtimespec.tv_sec, stats.st_mtimespec.tv_nsec),
+					ops.compare, 1);
 			else
 				handle_file(args->files, *argv, *argv, ops);
 		}
@@ -45,7 +45,7 @@ void			get_arguments(t_arguments *args, char **argv, t_options ops)
 {
 	args->dirs = 0;
 	args->nargs = 0;
-	args->files = init_entry(0);
+	args->files = init_entry(0, 0, 0);
 	args->bad_args = 0;
 	fill_trees(args, argv, ops);
 }

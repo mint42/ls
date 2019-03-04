@@ -6,18 +6,21 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:52 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 16:55:53 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 20:10:13 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_entry		*init_entry(char *path)
+t_entry		*init_entry(char *path, unsigned long int sec,
+				unsigned long int nsec)
 {
 	t_entry		*entry;
 
 	entry = (t_entry *)ft_memalloc(sizeof(t_entry));
 	entry->path = path;
+	entry->sec = sec;
+	entry->nsec = nsec;
 	entry->files = 0;
 	entry->max_username_len = 0;
 	entry->max_links_len = 0;
@@ -29,23 +32,23 @@ t_entry		*init_entry(char *path)
 }
 
 void		insert_entry(t_binarytree **dirs, t_entry *content,
-				int (*compare)())
+				int (*compare)(), int commandline)
 {
 	if (!*dirs)
 		*dirs = ft_treenew(content);
 	else
 	{
-		if (ft_count_c(content->path, '/') >
-			ft_count_c(T_ENTRY(*dirs)->path, '/'))
+		if (!commandline && (ft_count_c(content->path, '/') >
+			ft_count_c(T_ENTRY(*dirs)->path, '/')))
 		{
-			insert_entry(&(*dirs)->left, content, compare);
+			insert_entry(&(*dirs)->left, content, compare, commandline);
 		}
 		else
 		{
 			if ((compare((t_cmp *)content, (t_cmp *)T_ENTRY(*dirs))) >= 0)
-				insert_entry(&(*dirs)->right, content, compare);
+				insert_entry(&(*dirs)->right, content, compare, commandline);
 			else
-				insert_entry(&(*dirs)->left, content, compare);
+				insert_entry(&(*dirs)->left, content, compare, commandline);
 		}
 	}
 }

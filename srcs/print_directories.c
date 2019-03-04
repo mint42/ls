@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/03 16:48:58 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 20:10:31 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,8 @@ static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 	if ((ops.flags & OP_BIGR) && file && file->rights && *(file->rights) == 'd'
 			&& !ft_strequ(file->name, ".") && !ft_strequ(file->name, ".."))
 	{
-		entry = init_entry(ft_strdup(file_path));
-		entry->sec = file->sec;
-		entry->nsec = file->nsec;
-		insert_entry(&(*dirs)->right, entry, ops.compare);
+		entry = init_entry(ft_strdup(file_path), file->sec, file->nsec);
+		insert_entry(&(*dirs)->right, entry, ops.compare, 0);
 	}
 	ft_strdel(&file_path);
 }
@@ -81,7 +79,7 @@ static void		get_files(t_binarytree **dirs, t_options ops)
 	}
 	else
 	{
-		bad_entry = init_file();
+		bad_entry = init_file(0, 0);
 		bad_entry->bad_access = 1;
 		insert_file(&(T_ENTRY(*dirs)->files), bad_entry, ops.compare);
 	}

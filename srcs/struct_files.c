@@ -6,19 +6,19 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:58 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 16:56:00 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/03 19:38:27 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file	*init_file(void)
+t_file	*init_file(char *name, char *path)
 {
 	t_file	*file;
 
 	file = (t_file *)ft_memalloc(sizeof(t_file));
-	file->path = 0;
-	file->name = 0;
+	file->path = path;
+	file->name = name;
 	file->rights = 0;
 	file->username = 0;
 	file->username_len = 0;
