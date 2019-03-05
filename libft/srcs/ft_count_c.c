@@ -6,15 +6,15 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 20:40:14 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/21 20:44:05 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/04 17:49:03 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_count_c(char *s, char c)
+unsigned int	ft_count_c(char *s, char c)
 {
-	int		count;
+	unsigned int	count;
 
 	count = 0;
 	while (s && *s)

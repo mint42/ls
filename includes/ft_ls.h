@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 14:27:52 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/04 18:31:55 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@
 # include "libft.h"
 # include "config.h"
 
-# define SECONDS_IN_6_MONTHS (15778476)
-# define OP_NULL (0x0)
+# define SECONDS_IN_6_MONTHS (15724800)
+# define OP_NONE (0x0)
 # define OP_1 (0x1)
 # define OP_T (0x2)
 # define OP_R (0x4)
-# define OP_RT (0x6)
 # define OP_L (0x8)
 # define OP_G (0x10)
-# define OP_1G (0x11)
-# define OP_LG (0x18)
 # define OP_A (0x20)
 # define OP_BIGR (0x40)
-# define OP_PRINT (0x18)
-# define OP_COMPARE (0x6)
+# define ST_ALL (OP_L)
+# define ST_TIME (OP_T)
+# define ST_RIGHTS (OP_G | OP_BIGR)
+# define ALL_STATS (OP_L | OP_G | OP_BIGR | OP_T)
+# define ALL_PRINT (OP_1 | OP_G | OP_L)
+# define ALL_COMPARE (OP_T | OP_R)
 # define ALL_OPTIONS "Raglrt1"
 # define MAX_OPS (7)
 # define MAJOR(dev) (dev >> 24)
@@ -70,7 +71,6 @@ typedef struct			s_file
 	int					minor;
 	size_t				minor_len;
 	unsigned int		blocks;
-	unsigned int		bad_access;
 	char				*color;
 }						t_file;
 
@@ -79,6 +79,8 @@ typedef struct			s_entry
 	char				*path;
 	unsigned long int	sec;
 	unsigned long int	nsec;
+	unsigned int		slashes;
+	unsigned int		bad_access;
 	unsigned int		max_username_len;
 	unsigned int		max_groupname_len;
 	unsigned int		max_links_len;
@@ -167,12 +169,14 @@ void					delete_file(t_file **file);
 
 t_entry					*init_entry(char *path, unsigned long int sec,
 							unsigned long int nsec);
+void					update_entry(t_file *file, t_entry *entry);
+void					insert_entry_cl(t_binarytree **entry,
+							t_entry *content, int (*compare)());
 void					insert_entry(t_binarytree **entry,
-							t_entry *content, int (*compare)(),
-							int commandline);
+							t_entry *content, int (*compare)());
 void					delete_entry(t_entry **entry);
 
-t_bad_arg				*fill_bad_arg(char *path);
+t_bad_arg				*init_bad_arg(char *path);
 void					insert_bad_arg(t_binarytree **bad_args,
 							t_bad_arg *content, int (*compare)());
 void					print_bad_arg(t_binarytree *node);

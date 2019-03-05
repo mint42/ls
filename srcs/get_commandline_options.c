@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/01 22:49:43 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/04 16:14:48 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,30 +15,28 @@
 static void		*get_print_function(int ops)
 {
 	void			(*print)();
-	static void		(*print_table[OP_PRINT + 1])() = {
-		[OP_NULL] = print_default,
+	static void		(*print_table[ALL_PRINT + 1])() = {
 		[OP_1] = print_default,
-		[OP_G] = print_default_colors,
-		[OP_1G] = print_default_colors,
 		[OP_L] = print_long,
-		[OP_LG] = print_long_colors,
+		[OP_1 | OP_G] = print_default_colors,
+		[OP_L | OP_G] = print_long_colors,
 	};
 
-	print = print_table[ops & OP_PRINT];
+	print = print_table[ops & ALL_PRINT];
 	return (print);
 }
 
 static void		*get_compare_function(int ops)
 {
 	int				(*compare)();
-	static int		(*compare_table[OP_COMPARE + 1])() = {
-		[OP_NULL] = compare_default,
+	static int		(*compare_table[ALL_COMPARE + 1])() = {
+		[OP_NONE] = compare_default,
 		[OP_R] = compare_reverse,
 		[OP_T] = compare_time,
-		[OP_RT] = compare_time_reverse,
+		[OP_R | OP_T] = compare_time_reverse,
 	};
 
-	compare = compare_table[ops & OP_COMPARE];
+	compare = compare_table[ops & ALL_COMPARE];
 	return (compare);
 }
 
@@ -82,7 +80,7 @@ static void		fill_flags(int *ops, char ***argv)
 
 void			get_options(t_options *ops, char ***argv)
 {
-	ops->flags = 0;
+	ops->flags = OP_1;
 	ops->compare = 0;
 	ops->print = 0;
 	fill_flags(&(ops->flags), argv);

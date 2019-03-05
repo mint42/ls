@@ -6,7 +6,7 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 18:40:55 by rreedy            #+#    #+#              #
-#    Updated: 2019/03/04 13:37:06 by rreedy           ###   ########.fr        #
+#    Updated: 2019/03/05 15:11:51 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,14 +28,14 @@ $(NAME): $(LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 $(LIB):
-	make -C libft
+	@- make -C libft/ all
 
 clean:
 	@- $(RM) $(OBJS) 
-	@- make -C libft clean
+	@- make -C libft/ clean
 
 fclean: clean
 	@- $(RM) $(NAME)
-	@- make -C libft fclean
+	@- make -C libft/ fclean
 
 re: fclean all

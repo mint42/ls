@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:07 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/03 20:10:55 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/04 17:33:44 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void		fill_trees(t_arguments *args, char **argv, t_options ops)
 
 	if (!(*argv))
 	{
-		insert_entry(&(args->dirs), init_entry(ft_strdup("."), 0, 0),
-			ops.compare, 1);
+		insert_entry_cl(&(args->dirs), init_entry(ft_strdup("."), 0, 0),
+			ops.compare);
 		return ;
 	}
 	while (*argv)
@@ -27,15 +27,15 @@ static void		fill_trees(t_arguments *args, char **argv, t_options ops)
 		if (!((ops.flags & OP_L) ? lstat(*argv, &stats) : stat(*argv, &stats)))
 		{
 			if (S_ISDIR(stats.st_mode))
-				insert_entry(&(args->dirs), init_entry(ft_strdup(*argv),
+				insert_entry_cl(&(args->dirs), init_entry(ft_strdup(*argv),
 					stats.st_mtimespec.tv_sec, stats.st_mtimespec.tv_nsec),
-					ops.compare, 1);
+					ops.compare);
 			else
 				handle_file(args->files, *argv, *argv, ops);
 		}
 		else
 			insert_bad_arg(&(args->bad_args),
-					fill_bad_arg(ft_strdup(*argv)), compare_default);
+					init_bad_arg(ft_strdup(*argv)), compare_default);
 		++(args->nargs);
 		++argv;
 	}
