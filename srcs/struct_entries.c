@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:52 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/05 14:52:28 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 16:16:40 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_entry		*init_entry(char *path, unsigned long int sec,
 
 	entry = (t_entry *)ft_memalloc(sizeof(t_entry));
 	entry->path = path;
+	entry->path_len = (path) ? ft_strlen(path) : 0;
 	entry->sec = sec;
 	entry->nsec = nsec;
 	entry->slashes = ft_count_c(path, '/');

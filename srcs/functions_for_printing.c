@@ -6,23 +6,11 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:53 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 19:01:01 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 18:22:17 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-void			print_default(t_file *file, t_entry *entry)
-{
-	(void)entry;
-	ft_printf("%s\n", file->name);
-}
-
-void			print_default_colors(t_file *file, t_entry *entry)
-{
-	(void)entry;
-	ft_printf("%s%s\e[m\n", get_color(file), file->name);
-}
 
 static void		print_size(t_file *file, t_entry *entry)
 {
@@ -95,4 +83,16 @@ void			print_long_colors(t_file *file, t_entry *entry)
 		}
 		ft_putchar('\n');
 	}
+}
+
+void			print_default(t_file *file, t_entry *entry)
+{
+	(void)entry;
+	ft_printf("%s\n", file->name);
+}
+
+void			print_default_colors(t_file *file, t_entry *entry)
+{
+	(void)entry;
+	ft_printf("%s%s\e[m\n", get_color(file), file->name);
 }

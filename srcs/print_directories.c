@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 19:33:09 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 16:13:13 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,24 @@ static void		print_error(char *path)
 		"ft_ls: %s: %s\n", ft_strrchr(path, '/') + 1, strerror(errno));
 }
 
-static char		*get_file_path(char *dir_path, char *file_name)
+static char		*get_file_path(t_entry *entry, char *file_name)
 {
 	char	*new_path;
-	int		dir_path_len;
 	int		file_name_len;
 
-	dir_path_len = ft_strlen(dir_path);
 	file_name_len = ft_strlen(file_name);
-	if (dir_path_len == 1 && *dir_path == '/')
+	if (entry->path_len == 1 && *(entry->path) == '/')
 	{
-		new_path = ft_strnew(dir_path_len + file_name_len);
+		new_path = ft_strnew(entry->path_len + file_name_len);
 		*new_path = '/';
-		ft_strncpy(new_path + dir_path_len, file_name, file_name_len);
+		ft_strncpy(new_path + entry->path_len, file_name, file_name_len);
 	}
 	else
 	{
-		new_path = ft_strnew(dir_path_len + 1 + file_name_len);
-		ft_strncpy(new_path, dir_path, dir_path_len);
-		new_path[dir_path_len] = '/';
-		ft_strncpy(new_path + dir_path_len + 1, file_name, file_name_len);
+		new_path = ft_strnew(entry->path_len + 1 + file_name_len);
+		ft_strncpy(new_path, entry->path, entry->path_len);
+		new_path[entry->path_len] = '/';
+		ft_strncpy(new_path + entry->path_len + 1, file_name, file_name_len);
 	}
 	return (new_path);
 }
@@ -47,7 +45,7 @@ static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 	t_file	*file;
 	char	*file_path;
 
-	file_path = get_file_path(T_ENTRY(*dirs)->path, file_name);
+	file_path = get_file_path(T_ENTRY(*dirs), file_name);
 	file = handle_file(T_ENTRY(*dirs), file_name, file_path, ops);
 	if ((ops.flags & OP_BIGR) && file && file->rights && *(file->rights) == 'd'
 			&& !ft_strequ(file->name, ".") && !ft_strequ(file->name, ".."))

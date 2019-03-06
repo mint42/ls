@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 16:14:48 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 19:29:26 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void		*get_compare_function(int ops)
 	int				(*compare)();
 	static int		(*compare_table[ALL_COMPARE + 1])() = {
 		[OP_NONE] = compare_default,
+		[OP_F] = compare_not,
 		[OP_R] = compare_reverse,
 		[OP_T] = compare_time,
 		[OP_R | OP_T] = compare_time_reverse,
@@ -86,6 +87,8 @@ void			get_options(t_options *ops, char ***argv)
 	fill_flags(&(ops->flags), argv);
 	if (ops->flags == -1)
 		return ;
+	if (ops->flags & OP_F)
+		ops->flags = ops->flags | OP_A;
 	ops->compare = get_compare_function(ops->flags);
 	ops->print = get_print_function(ops->flags);
 }

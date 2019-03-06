@@ -6,18 +6,20 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:58:21 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 18:32:44 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 19:41:46 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void			get_date(t_file *file, struct stat stats)
+void			get_date(t_file *file, struct stat stats, int flags)
 {
 	char	*date;
 
 	date = ctime(&stats.st_mtimespec.tv_sec);
-	if ((time(NULL) - stats.st_mtimespec.tv_sec) >= SECONDS_IN_6_MONTHS)
+	if (flags & OP_BIGT)
+		ft_sprintf(&file->date, "%.20s", date + 4);
+	else if ((time(NULL) - stats.st_mtimespec.tv_sec) >= SECONDS_IN_6_MONTHS)
 		ft_sprintf(&file->date, "%-8.6s%.4s", date + 4, date + 20);
 	else if (time(NULL) < stats.st_mtimespec.tv_sec)
 		ft_sprintf(&file->date, "%-8.6s%.4s", date + 4, date + 20);

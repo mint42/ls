@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:58 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 17:56:41 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 18:18:51 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_file	*init_file(char *name, char *path)
 	file->major_len = 0;
 	file->minor = -1;
 	file->minor_len = 0;
-	file->color = COLOR_REG;
 	return (file);
 }
 

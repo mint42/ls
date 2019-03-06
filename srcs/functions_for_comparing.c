@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/01 20:36:39 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 20:04:52 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,16 @@ int		compare_time(t_cmp *cmp1, t_cmp *cmp2)
 int		compare_time_reverse(t_cmp *cmp1, t_cmp *cmp2)
 {
 	return (compare_time(cmp2, cmp1));
+}
+
+int		compare_not(t_cmp *cmp1, t_cmp *cmp2)
+{
+	char	*s1;
+	char	*s2;
+
+	s1 = cmp1->cmp_string;
+	s2 = cmp2->cmp_string;
+	if (ft_strequ(s1, "."))
+		return (-1);
+	return ((ft_strequ(s1, "..") && !ft_strequ(s2, ".")) ? -1 : 1);
 }

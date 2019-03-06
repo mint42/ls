@@ -6,13 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:06:22 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 17:29:17 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 19:38:12 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int		stats_all(t_file *file)
+static int		stats_all(t_file *file, int flags)
 {
 	struct stat		stats;
 
@@ -21,12 +21,15 @@ static int		stats_all(t_file *file)
 	get_rights(file, stats);
 	file->sec = stats.st_mtimespec.tv_sec;
 	file->nsec = stats.st_mtimespec.tv_nsec;
-	get_size(file, stats);
-	get_date(file, stats);
-	get_id(file, stats);
-	file->links = stats.st_nlink;
-	file->links_len = ft_numlen(file->links);
-	file->blocks = stats.st_blocks;
+	if (flags & OP_L)
+	{
+		get_size(file, stats);
+		get_date(file, stats, flags);
+		get_id(file, stats);
+		file->links = stats.st_nlink;
+		file->links_len = ft_numlen(file->links);
+		file->blocks = stats.st_blocks;
+	}
 	return (0);
 }
 
@@ -60,7 +63,7 @@ t_file			*handle_file(t_entry *entry, char *file_name, char *file_path,
 	error = 0;
 	file = init_file(ft_strdup(file_name), ft_strdup(file_path));
 	if (ops.flags & OP_L)
-		error = stats_all(file);
+		error = stats_all(file, ops.flags);
 	else if (ops.flags & (OP_G | OP_BIGR))
 		error = stats_rights(file);
 	else if (ops.flags & OP_T)

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 17:04:27 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 18:02:20 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 18:27:47 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define COLOR_EXE "\e[0;35m"
 # define COLOR_IMG "\e[0;33m"
 # define COLOR_ZIP "\e[1;36m"
-# define COLOR_DOTC "\e[1;32m"
+# define COLOR_SRC "\e[1;32m"
 
 static char		*g_img_extensions[7] =
 {
@@ -49,7 +49,7 @@ static char		*g_zip_extensions[7] =
 	0,
 };
 
-static char		*g_dot_c[2] =
+static char		*g_src_extensions[2] =
 {
 	".c",
 	0,

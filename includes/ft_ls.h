@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 18:31:55 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/05 19:39:56 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,21 @@
 # include "config.h"
 
 # define SECONDS_IN_6_MONTHS (15724800)
+# define ALL_OPTIONS "RTafglrt1"
+# define MAX_OPS (9)
 # define OP_NONE (0x0)
 # define OP_1 (0x1)
 # define OP_T (0x2)
 # define OP_R (0x4)
 # define OP_L (0x8)
 # define OP_G (0x10)
-# define OP_A (0x20)
-# define OP_BIGR (0x40)
-# define ST_ALL (OP_L)
-# define ST_TIME (OP_T)
-# define ST_RIGHTS (OP_G | OP_BIGR)
+# define OP_F (0x20)
+# define OP_A (0x40)
+# define OP_BIGT (0x80)
+# define OP_BIGR (0x100)
 # define ALL_STATS (OP_L | OP_G | OP_BIGR | OP_T)
 # define ALL_PRINT (OP_1 | OP_G | OP_L)
-# define ALL_COMPARE (OP_T | OP_R)
-# define ALL_OPTIONS "Raglrt1"
-# define MAX_OPS (7)
+# define ALL_COMPARE (OP_T | OP_R | OP_F)
 # define MAJOR(dev) (dev >> 24)
 # define MINOR(dev) (dev & 0xFFFFFF)
 # define T_ENTRY(binarytree) ((t_entry *)((binarytree)->content))
@@ -57,21 +56,19 @@ typedef struct			s_file
 	char				*path;
 	char				*rights;
 	char				*username;
-	size_t				username_len;
 	char				*groupname;
-	size_t				groupname_len;
 	char				*date;
-	time_t				time;
-	unsigned int		links;
-	size_t				links_len;
-	unsigned long int	bytes;
-	size_t				bytes_len;
 	int					major;
-	size_t				major_len;
 	int					minor;
-	size_t				minor_len;
+	unsigned int		links;
 	unsigned int		blocks;
-	char				*color;
+	unsigned long int	bytes;
+	size_t				username_len;
+	size_t				groupname_len;
+	size_t				links_len;
+	size_t				bytes_len;
+	size_t				major_len;
+	size_t				minor_len;
 }						t_file;
 
 typedef struct			s_entry
@@ -79,15 +76,16 @@ typedef struct			s_entry
 	char				*path;
 	unsigned long int	sec;
 	unsigned long int	nsec;
-	unsigned int		slashes;
-	unsigned int		bad_access;
-	unsigned int		max_username_len;
-	unsigned int		max_groupname_len;
-	unsigned int		max_links_len;
-	unsigned int		max_bytes_len;
-	unsigned int		max_major_len;
-	unsigned int		max_minor_len;
-	unsigned int		total_blocks;
+	size_t				path_len;
+	size_t				slashes;
+	size_t				bad_access;
+	size_t				max_username_len;
+	size_t				max_groupname_len;
+	size_t				max_links_len;
+	size_t				max_bytes_len;
+	size_t				max_major_len;
+	size_t				max_minor_len;
+	size_t				total_blocks;
 	t_binarytree		*files;
 }						t_entry;
 
@@ -152,7 +150,7 @@ t_file					*handle_file(t_entry *entry, char *file_name,
 void					get_rights(t_file *file, struct stat stats);
 void					get_id(t_file *file, struct stat stats);
 void					get_size(t_file *file, struct stat stats);
-void					get_date(t_file *file, struct stat stats);
+void					get_date(t_file *file, struct stat stats, int flags);
 
 /*
 **	struct_files.c
@@ -191,6 +189,7 @@ int						compare_default(t_cmp *cmp1, t_cmp *cmp2);
 int						compare_reverse(t_cmp *cmp1, t_cmp *cmp2);
 int						compare_time(t_cmp *cmp1, t_cmp *cmp2);
 int						compare_time_reverse(t_cmp *cmp1, t_cmp *cmp2);
+int						compare_not(t_cmp *cmp1, t_cmp *cmp2);
 
 void					print_default(t_file *file, t_entry *entry);
 void					print_default_colors(t_file *file, t_entry *entry);
