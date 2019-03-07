@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/05 19:29:26 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/06 16:34:35 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,13 @@ void			get_options(t_options *ops, char ***argv)
 	if (ops->flags == -1)
 		return ;
 	if (ops->flags & OP_F)
+	{
 		ops->flags = ops->flags | OP_A;
+		if (ops->flags | OP_R)
+			ops->flags = ops->flags ^ OP_R;
+		if (ops->flags | OP_T)
+			ops->flags = ops->flags ^ OP_T;
+	}
 	ops->compare = get_compare_function(ops->flags);
 	ops->print = get_print_function(ops->flags);
 }
