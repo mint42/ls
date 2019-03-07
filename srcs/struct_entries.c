@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:52 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/05 16:16:40 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/06 17:34:48 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,6 @@ t_entry		*init_entry(char *path, unsigned long int sec,
 	entry->max_minor_len = 0;
 	entry->total_blocks = 0;
 	return (entry);
-}
-
-void		update_entry(t_file *file, t_entry *entry)
-{
-	if (entry->max_username_len < file->username_len)
-		entry->max_username_len = file->username_len;
-	if (entry->max_groupname_len < file->groupname_len)
-		entry->max_groupname_len = file->groupname_len;
-	if (entry->max_links_len < file->links_len)
-		entry->max_links_len = file->links_len;
-	if (entry->max_bytes_len < file->bytes_len)
-		entry->max_bytes_len = file->bytes_len;
-	if (entry->max_minor_len < file->minor_len)
-		entry->max_minor_len = file->minor_len;
-	if (entry->max_major_len < file->major_len)
-		entry->max_major_len = file->major_len;
-	if ((entry->max_major_len || entry->max_minor_len) &&
-		entry->max_bytes_len >
-			entry->max_major_len + entry->max_minor_len + 2)
-	{
-		entry->max_major_len = entry->max_major_len + (entry->max_bytes_len -
-			(entry->max_major_len + entry->max_minor_len + 2));
-	}
-	entry->total_blocks = entry->total_blocks + file->blocks;
 }
 
 void		insert_entry_cl(t_binarytree **dirs, t_entry *content,
