@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/05 16:13:13 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/03/07 18:26:17 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,17 @@
 
 static void		print_error(char *path)
 {
-	ft_printfd(2,
-		"ft_ls: %s: %s\n", ft_strrchr(path, '/') + 1, strerror(errno));
+	if (ft_strrchr(path, '/'))
+	{
+		ft_printfd(2,
+			"ft_ls: %s: %s\n", ft_strrchr(path, '/') + 1, strerror(errno));
+	}
+	else
+	{
+		ft_printfd(2,
+			"ft_ls: %s: %s\n", path, strerror(errno));
+	}
+
 }
 
 static char		*get_file_path(t_entry *entry, char *file_name)
