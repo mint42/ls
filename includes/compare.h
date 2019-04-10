@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:49:01 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 16:56:12 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:05:44 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,3 @@ int						compare_time_reverse(t_cmp *cmp1, t_cmp *cmp2);
 int						compare_not(t_cmp *cmp1, t_cmp *cmp2);
 
 #endif
-

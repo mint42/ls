@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:56:33 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 17:01:53 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:04:50 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PRINT_H
 
 # include "options.h"
- 
+
 # define ALL_PRINT (OP_1 | OP_G | OP_L)
 
 typedef struct s_file	t_file;

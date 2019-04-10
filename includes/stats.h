@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:59:42 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 18:54:54 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:05:56 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define ALL_STATS (OP_L | OP_G | OP_BIGR | OP_T)
 # define MAJOR(dev) (dev >> 24)
 # define MINOR(dev) (dev & 0xFFFFFF)
-
 
 typedef struct s_file	t_file;
 typedef struct s_entry	t_entry;

@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 19:00:03 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:05:17 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static void		print_error(char *path)
 		ft_printfd(2,
 			"ft_ls: %s: %s\n", path, strerror(errno));
 	}
-
 }
 
 static char		*get_file_path(t_entry *entry, char *file_name)
