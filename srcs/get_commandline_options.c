@@ -6,11 +6,15 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/06 18:55:57 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 18:49:59 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "options.h"
+#include "print.h"
+#include "compare.h"
+#include "libft.h"
+#include <time.h>
 
 static void		*get_print_function(int ops)
 {

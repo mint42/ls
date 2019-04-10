@@ -6,11 +6,18 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/07 18:26:17 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:00:03 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include "options.h"
+#include "file.h"
+#include "entry.h"
+#include "libft.h"
+#include <dirent.h>
+#include <errno.h>
+#include <string.h>
 
 static void		print_error(char *path)
 {

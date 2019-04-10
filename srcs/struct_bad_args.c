@@ -6,11 +6,15 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:44 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 17:33:05 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 19:00:47 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "bad_arg.h"
+#include "compare.h"
+#include "libft.h"
+#include <errno.h>
+#include <string.h>
 
 t_bad_arg	*init_bad_arg(char *path)
 {

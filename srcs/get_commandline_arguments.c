@@ -6,11 +6,19 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:07 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/04 17:33:44 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 18:48:11 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include "arguments.h"
+#include "options.h"
+#include "compare.h"
+#include "file.h"
+#include "entry.h"
+#include "bad_arg.h"
+#include "libft.h"
+#include <sys/stat.h>
 
 static void		fill_trees(t_arguments *args, char **argv, t_options ops)
 {

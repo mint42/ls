@@ -6,11 +6,16 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 14:58:21 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/05 19:41:46 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 18:54:04 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "stats.h"
+#include "options.h"
+#include "file.h"
+#include "libft.h"
+#include <time.h>
+#include <sys/stat.h>
 
 void			get_date(t_file *file, struct stat stats, int flags)
 {

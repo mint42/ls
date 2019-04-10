@@ -6,11 +6,12 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:46 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/05 20:04:52 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 17:42:15 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "compare.h"
+#include "libft.h"
 
 int		compare_default(t_cmp *cmp1, t_cmp *cmp2)
 {

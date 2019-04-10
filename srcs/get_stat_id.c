@@ -6,11 +6,15 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:50:21 by rreedy            #+#    #+#             */
-/*   Updated: 2019/02/25 17:02:03 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 18:56:15 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "file.h"
+#include "libft.h"
+#include <pwd.h>
+#include <grp.h>
+#include <sys/stat.h>
 
 void		get_id(t_file *file, struct stat stats)
 {

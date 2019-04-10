@@ -6,11 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:52 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/06 17:34:48 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 17:42:15 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "entry.h"
+#include "compare.h"
+#include "libft.h"
 
 t_entry		*init_entry(char *path, unsigned long int sec,
 				unsigned long int nsec)

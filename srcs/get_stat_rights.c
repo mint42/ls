@@ -6,11 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:12:06 by rreedy            #+#    #+#             */
-/*   Updated: 2019/03/05 18:18:29 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/09 17:42:15 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "file.h"
+#include "libft.h"
+#include <sys/stat.h>
 
 static void		get_file_type(t_file *file, int mode)
 {
