@@ -6,12 +6,12 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:12:06 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 17:42:15 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/15 04:30:19 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "file.h"
-#include "libft.h"
+#include "ft_str.h"
 #include <sys/stat.h>
 
 static void		get_file_type(t_file *file, int mode)

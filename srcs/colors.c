@@ -6,13 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:56:35 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 18:53:32 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/15 04:23:18 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "file.h"
 #include "colors.h"
-#include "libft.h"
+#include "ft_str.h"
+#include <stddef.h>
 
 static char		*color_file_type(char c)
 {

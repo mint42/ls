@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/23 16:06:22 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 18:57:28 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/16 02:15:19 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 #include "options.h"
 #include "file.h"
 #include "entry.h"
-#include "libft.h"
+#include "ft_str.h"
+#include "ft_utils.h"
 #include <sys/stat.h>
 
 static int		get_stats(t_file *file, int flags)
@@ -70,7 +71,7 @@ t_file			*handle_file(t_entry *entry, char *file_name, char *file_path,
 	file = init_file(ft_strdup(file_name), ft_strdup(file_path));
 	if ((ops.flags & ALL_STATS) && (get_stats(file, ops.flags)))
 	{
-		delete_file(&file);
+		delete_file(&file, 0);
 		return (0);
 	}
 	update_entry(file, entry);

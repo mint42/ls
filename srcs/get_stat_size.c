@@ -6,13 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:50:44 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 18:56:38 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/15 04:30:19 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "stats.h"
 #include "file.h"
-#include "libft.h"
+#include "ft_utils.h"
 #include <sys/stat.h>
 
 void		get_size(t_file *file, struct stat stats)

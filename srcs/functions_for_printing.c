@@ -6,14 +6,17 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:53 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 17:42:15 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/15 04:32:13 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "file.h"
 #include "entry.h"
 #include "colors.h"
-#include "libft.h"
+#include "ft_str.h"
+#include "ft_printf.h"
+#include "ft_put.h"
+#include <unistd.h>
 
 static void		print_size(t_file *file, t_entry *entry)
 {

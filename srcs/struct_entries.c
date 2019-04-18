@@ -6,13 +6,16 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:52 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 17:42:15 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/16 02:22:28 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entry.h"
 #include "compare.h"
-#include "libft.h"
+#include "ft_mem.h"
+#include "ft_str.h"
+#include "ft_utils.h"
+#include "ft_binarytree.h"
 
 t_entry		*init_entry(char *path, unsigned long int sec,
 				unsigned long int nsec)
@@ -40,7 +43,7 @@ void		insert_entry_cl(t_binarytree **dirs, t_entry *content,
 				int (*compare)())
 {
 	if (!*dirs)
-		*dirs = ft_treenew(content);
+		*dirs = ft_treeinit(content, 0);
 	else
 	{
 		if ((compare((t_cmp *)content, (t_cmp *)T_ENTRY(*dirs))) >= 0)
@@ -54,7 +57,7 @@ void		insert_entry(t_binarytree **dirs, t_entry *content,
 				int (*compare)())
 {
 	if (!*dirs)
-		*dirs = ft_treenew(content);
+		*dirs = ft_treeinit(content, 0);
 	else
 	{
 		if (content->slashes > T_ENTRY(*dirs)->slashes)
@@ -69,12 +72,12 @@ void		insert_entry(t_binarytree **dirs, t_entry *content,
 	}
 }
 
-void		delete_entry(t_entry **entry)
+void		delete_entry(void *content, size_t content_size)
 {
-	if (*entry)
+	(void)content_size;
+	if (content)
 	{
-		if ((*entry)->path)
-			ft_strdel(&((*entry)->path));
-		ft_memdel((void **)entry);
+		ft_strdel(&((t_entry *)(content))->path);
+		ft_memdel((void **)&content);
 	}
 }

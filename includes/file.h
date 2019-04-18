@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:51:41 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 19:07:39 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/16 01:54:10 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,6 @@ void					insert_file(t_binarytree **files,
 								t_file *content, int (*compare)());
 void					print_files(t_binarytree *files, t_entry *entry,
 								void (*print)());
-void					delete_file(t_file **file);
+void					delete_file(void *content, size_t content_size);
 
 #endif

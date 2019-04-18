@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 19:05:17 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/17 17:19:18 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 #include "options.h"
 #include "file.h"
 #include "entry.h"
-#include "libft.h"
+#include "ft_str.h"
+#include "ft_printf.h"
+#include "ft_mem.h"
+#include "ft_put.h"
+#include "ft_binarytree.h"
 #include <dirent.h>
 #include <errno.h>
 #include <string.h>
@@ -116,6 +120,6 @@ void			print_dirs(t_binarytree **dirs, int nargs, t_options ops,
 	ft_treedel(&(T_ENTRY(*dirs)->files), delete_file);
 	if (*dirs && (*dirs)->right)
 		print_dirs(&(*dirs)->right, nargs, ops, newline);
-	delete_entry((t_entry **)&(*dirs)->content);
+	delete_entry((*dirs)->content, 0);
 	ft_memdel((void **)dirs);
 }

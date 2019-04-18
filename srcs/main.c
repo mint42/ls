@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 18:57:58 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/16 01:54:33 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 #include "file.h"
 #include "entry.h"
 #include "bad_arg.h"
-#include "libft.h"
+#include "ft_mem.h"
+#include "ft_printf.h"
+#include "ft_binarytree.h"
 
 int		print_bad_option(char c)
 {

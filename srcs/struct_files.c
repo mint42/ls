@@ -6,14 +6,16 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:55:58 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 17:42:15 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/17 01:30:12 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "file.h"
 #include "entry.h"
 #include "compare.h"
-#include "libft.h"
+#include "ft_mem.h"
+#include "ft_str.h"
+#include "ft_binarytree.h"
 
 t_file	*init_file(char *name, char *path)
 {
@@ -43,7 +45,7 @@ void	insert_file(t_binarytree **files, t_file *content,
 				int (*compare)())
 {
 	if (!*files)
-		*files = ft_treenew(content);
+		*files = ft_treeinit(content, 0);
 	else
 	{
 		if (compare((t_cmp *)content, (t_cmp *)T_FILE_F(*files)) >= 0)
@@ -62,22 +64,17 @@ void	print_files(t_binarytree *files, t_entry *entry, void (*print)())
 		print_files(files->right, entry, print);
 }
 
-void	delete_file(t_file **file)
+void	delete_file(void *content, size_t content_size)
 {
-	if (*file)
+	(void)content_size;
+	if (content)
 	{
-		if ((*file)->path)
-			ft_strdel(&((*file)->path));
-		if ((*file)->name)
-			ft_strdel(&((*file)->name));
-		if ((*file)->rights)
-			ft_strdel(&((*file)->rights));
-		if ((*file)->username)
-			ft_strdel(&((*file)->username));
-		if ((*file)->groupname)
-			ft_strdel(&((*file)->groupname));
-		if ((*file)->date)
-			ft_strdel(&((*file)->date));
-		ft_memdel((void **)file);
+		ft_strdel(&((t_file *)(content))->path);
+		ft_strdel(&((t_file *)(content))->name);
+		ft_strdel(&((t_file *)(content))->rights);
+		ft_strdel(&((t_file *)(content))->username);
+		ft_strdel(&((t_file *)(content))->groupname);
+		ft_strdel(&((t_file *)(content))->date);
+		ft_memdel((void **)&content);
 	}
 }

@@ -6,14 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 18:49:59 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/17 03:02:47 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "options.h"
 #include "print.h"
 #include "compare.h"
-#include "libft.h"
+#include "ft_str.h"
 #include <time.h>
 
 static void		*get_print_function(int ops)

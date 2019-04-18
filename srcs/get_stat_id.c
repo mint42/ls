@@ -6,12 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:50:21 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 18:56:15 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/15 04:32:30 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "file.h"
-#include "libft.h"
+#include "ft_str.h"
+#include "ft_conv.h"
 #include <pwd.h>
 #include <grp.h>
 #include <sys/stat.h>

@@ -6,12 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:41:11 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 17:10:34 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/16 01:53:23 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BAD_ARG_H
 # define BAD_ARG_H
+
+# include <stddef.h>
 
 # define T_BAD_ARG(binarytree) ((t_bad_arg *)((binarytree)->content))
 
@@ -27,6 +29,6 @@ t_bad_arg			*init_bad_arg(char *path);
 void				insert_bad_arg(t_binarytree **bad_args,
 							t_bad_arg *content, int (*compare)());
 void				print_bad_arg(t_binarytree *node);
-void				delete_bad_arg(t_bad_arg **bad_arg);
+void				delete_bad_arg(void *content, size_t content_size);
 
 #endif
