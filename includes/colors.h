@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 17:43:27 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 17:44:29 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/21 05:14:56 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define COLOR_ZIP "\e[1;36m"
 # define COLOR_SRC "\e[1;32m"
 
-static char		*g_img_extensions[7] =
+static const char	*g_img_extensions[7] =
 {
 	".bmp",
 	".gif",
@@ -36,7 +36,7 @@ static char		*g_img_extensions[7] =
 	0,
 };
 
-static char		*g_zip_extensions[7] =
+static const char	*g_zip_extensions[7] =
 {
 	".7z",
 	".gz",
@@ -47,7 +47,7 @@ static char		*g_zip_extensions[7] =
 	0,
 };
 
-static char		*g_src_extensions[2] =
+static const char	*g_src_extensions[2] =
 {
 	".c",
 	0,

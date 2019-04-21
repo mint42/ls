@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:56:35 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/15 04:23:18 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/04/21 05:17:18 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static char		*color_file_type(char c)
 	return (0);
 }
 
-static int		color_ext(char *name, char **list)
+static int		color_ext(char *name, const char **list)
 {
 	char	**extension;
 	size_t	strlen;
 	size_t	extlen;
 
-	extension = list;
+	extension = (char **)list;
 	strlen = ft_strlen(name);
 	extlen = 0;
 	while (extension && *extension)
