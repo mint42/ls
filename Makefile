@@ -6,7 +6,7 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 18:40:55 by rreedy            #+#    #+#              #
-#    Updated: 2019/04/17 17:30:00 by rreedy           ###   ########.fr        #
+#    Updated: 2019/04/22 00:38:04 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ clean:
 	@- make -C lib/ clean
 
 fclean: clean
-	@- $(RM) $(NAME) $(LIB)
+	@- $(RM) $(NAME)
 	@- make -C lib/ fclean
 
 re: fclean all

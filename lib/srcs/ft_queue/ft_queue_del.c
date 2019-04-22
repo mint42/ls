@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_word_count.c                                    :+:      :+:    :+:   */
+/*   ft_queue_del.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/07 23:12:10 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/17 19:11:23 by rreedy           ###   ########.fr       */
+/*   Created: 2019/04/20 12:39:17 by rreedy            #+#    #+#             */
+/*   Updated: 2019/04/20 18:59:47 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_word_count(const char *s, int c)
-{
-	int		i;
+#include "ft_queue.h"
+#include "ft_mem.h"
 
-	i = 0;
-	while (*s)
+void	ft_queue_del(t_queue **queue, void (*del)(void *))
+{
+	void	*content;
+
+	if (!(*queue))
+		return ;
+	content = 0;
+	while (!ft_queue_is_empty(*queue))
 	{
-		if (*s != (unsigned char)c)
-		{
-			++i;
-			while (*s && *s != (unsigned char)c)
-				++s;
-		}
-		else
-			++s;
+		content = ft_dequeue(*queue);
+		del(content);
 	}
-	return (i);
+	ft_memdel((void **)queue);
 }

@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_word_count.c                                    :+:      :+:    :+:   */
+/*   ft_stack_init.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/07 23:12:10 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/17 19:11:23 by rreedy           ###   ########.fr       */
+/*   Created: 2019/04/17 22:15:56 by rreedy            #+#    #+#             */
+/*   Updated: 2019/04/20 12:31:07 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_word_count(const char *s, int c)
-{
-	int		i;
+#include "ft_stack.h"
+#include "ft_mem.h"
 
-	i = 0;
-	while (*s)
-	{
-		if (*s != (unsigned char)c)
-		{
-			++i;
-			while (*s && *s != (unsigned char)c)
-				++s;
-		}
-		else
-			++s;
-	}
-	return (i);
+t_stack		*ft_stack_init(void)
+{
+	t_stack		*stack;
+
+	stack = (t_stack *)ft_memalloc(sizeof(t_stack));
+	if (!stack)
+		return (0);
+	stack->top = 0;
+	return (stack);
 }

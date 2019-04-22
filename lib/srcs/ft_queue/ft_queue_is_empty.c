@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_word_count.c                                    :+:      :+:    :+:   */
+/*   ft_queue_is_empty.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/07 23:12:10 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/17 19:11:23 by rreedy           ###   ########.fr       */
+/*   Created: 2019/04/20 12:38:13 by rreedy            #+#    #+#             */
+/*   Updated: 2019/04/20 12:45:08 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_word_count(const char *s, int c)
-{
-	int		i;
+#include "ft_queue.h"
 
-	i = 0;
-	while (*s)
-	{
-		if (*s != (unsigned char)c)
-		{
-			++i;
-			while (*s && *s != (unsigned char)c)
-				++s;
-		}
-		else
-			++s;
-	}
-	return (i);
+int		ft_queue_is_empty(t_queue *queue)
+{
+	if (!queue || !(queue->first))
+		return (1);
+	return (0);
 }
