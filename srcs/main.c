@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/16 01:54:33 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/05/11 10:09:12 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,15 @@
 #include "ft_mem.h"
 #include "ft_printf.h"
 #include "ft_binarytree.h"
+#include <stdbool.h>
 
-int		print_bad_option(char c)
+/*
+**	The print_bad_option() function gets called if the get_options() funtion
+**	fails, meaning a bad flag was sent to the ls program through the command
+**	line.
+*/
+
+static int		print_bad_option(char c)
 {
 	ft_printfd(2,
 		"ft_ls: illegal option -- %c\nusage: ft_ls [-%s] [file ...]\n",
@@ -28,14 +35,27 @@ int		print_bad_option(char c)
 	return (1);
 }
 
-int		main(int argc, char **argv)
+/*
+**	The main() function controls the ls program. The command line is parsed by
+**	the get_options() and get_arguments() functions, returning information
+**	about the command line to the t_options and t_arguments structs
+**	respectively. The arguments are split into three different binary trees
+**	held in the t_arguments struct;
+**	one holding non-readable or non-existant files (arguments.bad_args);
+**	one holding valid files (arguments.files),
+**	one holding directories (arguments.dirs).
+**	These binary trees then get recursed left to right and printed to the
+**	terminal. 
+*/
+
+int				main(int argc, char **argv)
 {
 	t_arguments		arguments;
 	t_options		ops;
-	int				newline;
+	bool			print_newline;
 
-	newline = 0;
 	(void)argc;
+	print_newline = false;
 	get_options(&ops, &argv);
 	if (ops.flags == -1)
 		return (print_bad_option(**argv));
@@ -51,6 +71,6 @@ int		main(int argc, char **argv)
 	}
 	ft_memdel((void **)&(arguments.files));
 	if (arguments.dirs)
-		print_dirs(&(arguments.dirs), arguments.nargs, ops, &newline);
+		print_dirs(&(arguments.dirs), arguments.nargs, ops, &print_newline);
 	return (0);
 }

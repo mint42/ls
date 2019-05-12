@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 18:14:19 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/17 17:19:18 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/05/11 18:51:37 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@
 #include <dirent.h>
 #include <errno.h>
 #include <string.h>
+#include <stdbool.h>
+
+/*
+**	The print_error() function prints the error message for the directory
+**	instead of printing the files. Error message comes from ERRNO.
+*/
 
 static void		print_error(char *path)
 {
@@ -36,6 +42,13 @@ static void		print_error(char *path)
 			"ft_ls: %s: %s\n", path, strerror(errno));
 	}
 }
+
+/*
+**	The get_file_path() function takes the current file's name and the path
+**	to its directory, and creates an absolute path to the file. The if
+**	statement exists to make sure the function doesn't add two slashes to the
+**	path when the root folder is being recursed.
+*/
 
 static char		*get_file_path(t_entry *entry, char *file_name)
 {
@@ -59,6 +72,16 @@ static char		*get_file_path(t_entry *entry, char *file_name)
 	return (new_path);
 }
 
+/*
+**	The get_file() function takes a file name, and creates an absolute path to
+**	it using the current directory path. handle_file() uses the path to call
+**	stat() which gets the file information. Once handle_file() returns, the
+**	function checks if the dirent is a directory, and also if the right
+**	criteria are met to add it into the the directory tree, so that
+**	print_dirs() can recurse to it before the getting to other directories.
+**	(This is how this ls implementation handles sub-directory recursion.)
+*/
+
 static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 {
 	t_file	*file;
@@ -74,6 +97,13 @@ static void		get_file(t_binarytree **dirs, char *file_name, t_options ops)
 	}
 	ft_strdel(&file_path);
 }
+
+/*
+**	The get_files() function takes the current directory, opens a directory
+**	stream on it, and loops through the stream using readdir() to get each
+**	dirent. If the dirent is valid, the function calls get_file() to get file
+**	information and to insert that dirent into the files tree.
+*/
 
 static void		get_files(t_binarytree **dirs, t_options ops)
 {
@@ -95,16 +125,26 @@ static void		get_files(t_binarytree **dirs, t_options ops)
 		T_ENTRY(*dirs)->bad_access = 1;
 }
 
+/*
+**	The print_dirs() function recurses the directory tree left to right
+**	while getting information about the files in the currently recursed
+**	directory. After get_files() returns with the filled binary tree of files
+**	(in the t_entry struct) it prints those files to the terminal using the
+**	print_files function or else it prints an error message. While recuring
+**	left to right getting file information it also recurses bottom to top and
+**	deletes the directory tree.
+*/
+
 void			print_dirs(t_binarytree **dirs, int nargs, t_options ops,
-					int *newline)
+					bool *print_newline)
 {
 	if (*dirs && (*dirs)->left)
-		print_dirs(&(*dirs)->left, nargs, ops, newline);
+		print_dirs(&(*dirs)->left, nargs, ops, print_newline);
 	get_files(dirs, ops);
-	if (*newline)
+	if (*print_newline == true)
 		ft_putchar('\n');
 	else
-		*newline = 1;
+		*print_newline = true;
 	if (nargs > 1)
 		ft_printf("%s:\n", T_ENTRY(*dirs)->path);
 	else
@@ -119,7 +159,7 @@ void			print_dirs(t_binarytree **dirs, int nargs, t_options ops,
 	}
 	ft_treedel(&(T_ENTRY(*dirs)->files), delete_file);
 	if (*dirs && (*dirs)->right)
-		print_dirs(&(*dirs)->right, nargs, ops, newline);
+		print_dirs(&(*dirs)->right, nargs, ops, print_newline);
 	delete_entry((*dirs)->content, 0);
 	ft_memdel((void **)dirs);
 }
