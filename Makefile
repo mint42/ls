@@ -6,7 +6,7 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 18:40:55 by rreedy            #+#    #+#              #
-#    Updated: 2019/09/04 15:01:25 by rreedy           ###   ########.fr        #
+#    Updated: 2019/09/04 16:45:20 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,3 +39,6 @@ fclean: clean
 	@- make -C libft/ fclean
 
 re: fclean all
+
+install: $(NAME)
+	ln -sv $(shell pwd)/$(NAME) ~/bin/ft_ls
