@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/05/11 10:09:12 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/09/04 15:15:58 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int		print_bad_option(char c)
 **	one holding valid files (arguments.files),
 **	one holding directories (arguments.dirs).
 **	These binary trees then get recursed left to right and printed to the
-**	terminal. 
+**	terminal.
 */
 
 int				main(int argc, char **argv)

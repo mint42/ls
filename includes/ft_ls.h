@@ -6,14 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/07 18:44:23 by rreedy            #+#    #+#             */
-/*   Updated: 2019/05/11 18:31:17 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/09/04 15:16:14 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
-#include <stdbool.h>
+# include <stdbool.h>
 
 typedef struct s_file			t_file;
 typedef struct s_entry			t_entry;

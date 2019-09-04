@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 17:43:27 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/23 07:51:11 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/06/16 00:12:06 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,10 @@ static const char	*g_zip_extensions[8] =
 	0,
 };
 
-static const char	*g_src_extensions[2] =
+static const char	*g_src_extensions[3] =
 {
 	".c",
+	".h",
 	0,
 };
 

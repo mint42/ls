@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/17 03:02:47 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/09/04 15:15:15 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include "compare.h"
 #include "ft_str.h"
 #include <time.h>
+
+/*
+**	The get_print_function() uses a jump table to determine which print
+**	function should be used by bitwise and-ing to get the index of the table.
+*/
 
 static void		*get_print_function(int ops)
 {
@@ -29,6 +34,11 @@ static void		*get_print_function(int ops)
 	print = print_table[ops & ALL_PRINT];
 	return (print);
 }
+
+/*
+**	The get_compare_function() uses a jump table to determine which compare
+**	function should be used by bitwise and-ing to get the index of the table.
+*/
 
 static void		*get_compare_function(int ops)
 {
@@ -45,6 +55,12 @@ static void		*get_compare_function(int ops)
 	return (compare);
 }
 
+/*
+**	The get_ops() function uses bit math to either toggle the L and 1 flags
+**	on or off given the current flag, or else turns on the new flag using
+**	a bit shift.
+*/
+
 static int		get_ops(int ops, char *cur, char *all_ops)
 {
 	if ((OP_1 | OP_L) & (1 << ((MAX_OPS - 1) - (cur - all_ops))))
@@ -56,6 +72,15 @@ static int		get_ops(int ops, char *cur, char *all_ops)
 		ops = (ops) | (1 << ((MAX_OPS - 1) - (cur - all_ops)));
 	return (ops);
 }
+
+/*
+**	The fill_flags() function loops through argv and uses bit operators to
+**	toggle the respective bits for the current flag.
+**	The bit encoding:
+**		R T a f g l r t 1
+**	-1 being 0x1, -t being 0x2 and so on.
+**	Macros for this can be found in the	includes/options.h file
+*/
 
 static void		fill_flags(int *ops, char ***argv)
 {
@@ -82,6 +107,12 @@ static void		fill_flags(int *ops, char ***argv)
 		}
 	}
 }
+
+/*
+**	The get_options() function fills the t_options struct with a bit encoded
+**	int	with the flags, and uses those flags to choose function pointers for
+**	the comparing and printing functions.
+*/
 
 void			get_options(t_options *ops, char ***argv)
 {

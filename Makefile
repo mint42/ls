@@ -6,19 +6,19 @@
 #    By: rreedy <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/07 18:40:55 by rreedy            #+#    #+#              #
-#    Updated: 2019/04/22 00:38:04 by rreedy           ###   ########.fr        #
+#    Updated: 2019/09/04 15:01:25 by rreedy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME := ft_ls
-LIB += lib/libft.a
+LIB += libft/libft.a
 
 OBJS := $(patsubst %.c,%.o,$(wildcard ./srcs/*.c))
 
 CC := gcc
-INCLUDES := -I./includes -I./lib/includes -I./lib/includes/ft_printf
+INCLUDES := -I./includes -I./libft/includes -I./libft/includes/ft_printf
 CFLAGS += -g -Wall -Wextra -Werror $(INCLUDES)
-LFLAGS += -L./lib -lft
+LFLAGS += -L./libft -lft
 
 .PHONY: all clean fclean re
 
@@ -28,14 +28,14 @@ $(NAME): $(LIB) $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LFLAGS)
 
 $(LIB):
-	@- make -C lib/ all
+	@- make -C libft/ all
 
 clean:
 	@- $(RM) $(OBJS) 
-	@- make -C lib/ clean
+	@- make -C libft/ clean
 
 fclean: clean
 	@- $(RM) $(NAME)
-	@- make -C lib/ fclean
+	@- make -C libft/ fclean
 
 re: fclean all
