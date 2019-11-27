@@ -6,12 +6,12 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/11 18:19:53 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/15 04:32:13 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:09 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
-#include "entry.h"
+#include "struct_file.h"
+#include "struct_entry.h"
 #include "colors.h"
 #include "ft_str.h"
 #include "ft_printf.h"

@@ -6,14 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:59:42 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 19:05:56 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:59 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STATS_H
 # define STATS_H
 
-# include "options.h"
+# include "struct_options.h"
 # include <sys/stat.h>
 
 # define SECONDS_IN_6_MONTHS (15724800)

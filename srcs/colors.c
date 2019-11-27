@@ -6,11 +6,11 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 15:56:35 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/21 05:17:18 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:09 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "struct_file.h"
 #include "colors.h"
 #include "ft_str.h"
 #include <stddef.h>

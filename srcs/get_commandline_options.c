@@ -6,13 +6,13 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:47:28 by rreedy            #+#    #+#             */
-/*   Updated: 2019/09/04 15:15:15 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:09 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "options.h"
+#include "struct_options.h"
+#include "struct_cmp.h"
 #include "print.h"
-#include "compare.h"
 #include "ft_str.h"
 #include <time.h>
 

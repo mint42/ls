@@ -6,14 +6,14 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 16:56:33 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 19:04:50 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:29 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PRINT_H
 # define PRINT_H
 
-# include "options.h"
+# include "struct_options.h"
 
 # define ALL_PRINT (OP_1 | OP_G | OP_L)
 

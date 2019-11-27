@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/09 17:43:27 by rreedy            #+#    #+#             */
-/*   Updated: 2019/06/16 00:12:06 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:37:40 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,6 @@ static const char	*g_src_extensions[3] =
 	0,
 };
 
-char			*get_color(t_file *file);
+char	*get_color(t_file *file);
 
 #endif

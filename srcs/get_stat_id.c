@@ -6,11 +6,11 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/25 16:50:21 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/15 04:32:30 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:09 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.h"
+#include "struct_file.h"
 #include "ft_str.h"
 #include "ft_conv.h"
 #include <pwd.h>

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   options.h                                          :+:      :+:    :+:   */
+/*   struct_options.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 16:45:59 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 16:47:34 by rreedy           ###   ########.fr       */
+/*   Created: 2019/11/27 15:38:14 by rreedy            #+#    #+#             */
+/*   Updated: 2019/11/27 15:38:27 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OPTIONS_H
-# define OPTIONS_H
+#ifndef STRUCT_OPTIONS_H
+# define STRUCT_OPTIONS_H
 
 # define ALL_OPTIONS "RTafglrt1"
 # define MAX_OPS (9)

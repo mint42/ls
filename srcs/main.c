@@ -6,16 +6,16 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 10:53:25 by rreedy            #+#    #+#             */
-/*   Updated: 2019/09/04 15:15:58 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:41:09 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include "options.h"
-#include "arguments.h"
-#include "file.h"
-#include "entry.h"
-#include "bad_arg.h"
+#include "struct_options.h"
+#include "struct_arguments.h"
+#include "struct_file.h"
+#include "struct_entry.h"
+#include "struct_bad_arg.h"
 #include "ft_mem.h"
 #include "ft_printf.h"
 #include "ft_binarytree.h"

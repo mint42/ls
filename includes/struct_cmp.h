@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   compare.h                                          :+:      :+:    :+:   */
+/*   struct_cmp.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/09 16:49:01 by rreedy            #+#    #+#             */
-/*   Updated: 2019/04/09 19:05:44 by rreedy           ###   ########.fr       */
+/*   Created: 2019/11/27 15:37:58 by rreedy            #+#    #+#             */
+/*   Updated: 2019/11/27 15:41:20 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COMPARE_H
-# define COMPARE_H
+#ifndef STRUCT_CMP_H
+# define STRUCT_CMP_H
 
-# include "options.h"
+# include "struct_options.h"
 
 # define ALL_COMPARE (OP_T | OP_R | OP_F)
 
