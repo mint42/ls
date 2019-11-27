@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:38:04 by rreedy            #+#    #+#             */
-/*   Updated: 2019/11/27 15:38:27 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:48:13 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 # define T_ENTRY(binarytree) ((t_entry *)((binarytree)->content))
 
-typedef struct s_entry			t_entry;
 typedef struct s_binarytree		t_binarytree;
 
 typedef struct			s_entry

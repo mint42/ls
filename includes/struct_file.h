@@ -6,7 +6,7 @@
 /*   By: rreedy <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 15:38:10 by rreedy            #+#    #+#             */
-/*   Updated: 2019/11/27 15:38:27 by rreedy           ###   ########.fr       */
+/*   Updated: 2019/11/27 15:48:37 by rreedy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # define T_FILE_D(binarytree) T_FILE_E(T_ENTRY(binarytree))
 
 typedef struct s_binarytree		t_binarytree;
-typedef struct s_file			t_file;
 typedef struct s_entry			t_entry;
 
 typedef struct			s_file
