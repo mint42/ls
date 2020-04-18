@@ -10,7 +10,7 @@ ft_ls uses [my 42 library](https://github.com/mint42/libft) which has been inclu
 usage: ft_ls [flags] [args]
 ```
 
-## NOTES
+## Notes
 
 This code does not compile on linux as of today.
 
