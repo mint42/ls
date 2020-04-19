@@ -12,7 +12,7 @@ usage: ./ft_ls [-RTafglrt1] [file ...]
 
 ## Notes
 
-- The -g flag is the flag for enabling colors, but typically this -G. I did this because.
+- The `-g` flag is the flag for enabling colors, but typically this is `-G`. I did this because.
 - This code does not compile on linux as of today.
 
 ## Author
